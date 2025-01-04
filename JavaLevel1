@@ -22,3 +22,165 @@ public class EventManagement {
         scanner.close();
     }
 }
+
+Or you can use
+-----------------
+DecimalFormat d  = new DecimalFormat("0.00");
+System.out.println("Total expenses : Rs." +d.format(totalExpenses));
+System.out.println("Branding expenses percentage : " +d.format((branding/sum)*100) +"%");
+
+
+FA Q2
+----------
+import java.util.Scanner;
+class Main{
+    public static void main (String args[]){
+        char ch;
+        Scanner sc=new Scanner(System.in);
+        ch=sc.next().charAt(0);
+        if( (ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z')){
+        int a=(int)ch;
+        float b=(float)ch;
+        byte c=(byte)ch;
+        short d=(short)ch;
+        System.out.println("int:"+a);
+        System.out.println("float:"+b);
+        System.out.println("byte:"+c);
+        System.out.println("short:"+d);
+    }
+    else {
+        System.out.println("Invalid");
+    }
+    
+    }   
+
+
+Operators:
+---------------
+
+import java.io.*;
+import java.util.*;
+class Main {
+    public static void main(String [] args) {
+        int a,b;
+        Scanner sc = new Scanner(System.in);
+        a = sc.nextInt();
+        b = sc.nextInt();
+        a = a+b;
+        b = a-b;
+        a = a-b;
+        System.out.print(a+" "+b);
+    }
+}
+
+
+
+import java.util.Scanner;
+class Area{
+    public static void main(String args[]){
+        int l,b;
+        float ar;
+        Scanner sc=new Scanner(System.in);
+        l=sc.nextInt();
+        b=sc.nextInt();
+        if(l>0&&b>0){
+        ar=l*b;
+        System.out.println(ar);
+        }
+        else
+        {
+            System.out.println("Invalid");
+        }
+        
+    }
+}
+
+
+Adding integer with character
+----------------------
+import java.util.Scanner;
+class Main{
+    public static void main(String args[]){
+        int x;
+        char a;
+        Scanner sc=new Scanner(System.in);
+        x=sc.nextInt();
+        a=sc.next().charAt(0);
+        if(x>200){
+          System.out.println("Invalid");  
+        }
+        else{
+        x=x+a;
+        System.out.println(x);
+        }
+    }
+}
+
+Conditional stmts
+---------------------
+import java.util.Scanner;
+class Main{
+    public static void main(String args[]){
+        int mark;
+        Scanner in =new Scanner(System.in);
+        mark=in.nextInt();
+        if(mark>=85){
+            System.out.print("A");
+        }
+        else if(mark>=75){
+            System.out.print("B");
+        }
+        else if(mark>=65){
+            System.out.print("C");
+        }
+        else if(mark>=0){
+            System.out.print("D");
+        }
+        else{
+            System.out.print("Invalid");
+        }
+    }
+}
+
+
+Carrom Problems
+-----------------
+import java.util.Scanner;
+
+class Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        int points = scanner.nextInt();
+        char redPocketed = scanner.next().charAt(0);
+        
+        if (points < 1 || points > 9) {
+            System.out.println("Invalid Input");
+        } else {
+            if (redPocketed == 'r') {
+                points += 5;
+            }
+            System.out.println(points);
+        }
+        scanner.close();
+    }
+}
+or you can compare like: Character.compare(c,'r')==0) 
+
+Loops
+---------
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        int n = scanner.nextInt();
+        int salary = 0;
+        int currentSalary = 10;
+        for (int day = 1; day <= n; day++) {
+            salary += currentSalary;
+            currentSalary *= 2;
+        }
+        System.out.println(salary);
+        scanner.close();
+    }
+}

@@ -14,7 +14,7 @@ public class EventManagement {
         double travelPercentage = (travel / totalExpenses) * 100;
         double foodPercentage = (food / totalExpenses) * 100;
         double logisticsPercentage = (logistics / totalExpenses) * 100;
-        System.out.printf("%.2f%n", totalExpenses);
+        System.out.printf("%.2f%n", totalExpenses); //%n is newline and platform independent. works well in all environments \n also allowed.
         System.out.printf("%.2f%n", brandingPercentage);
         System.out.printf("%.2f%n", travelPercentage);
         System.out.printf("%.2f%n", foodPercentage);
@@ -184,3 +184,128 @@ public class Main {
         scanner.close();
     }
 }
+Strong Number
+--------------
+import java.util.Scanner;
+
+public class StrongNumber {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        int number = scanner.nextInt();
+        int originalNumber = number;
+        int sumOfFactorials = 0;
+
+        while (number > 0) {
+            int digit = number % 10;
+            sumOfFactorials += factorial(digit);
+            number /= 10;
+        }
+
+        if (sumOfFactorials == originalNumber) {
+            System.out.println(originalNumber + " Strong Number");
+        } else {
+            System.out.println(originalNumber + " Not a Strong Number");
+        }
+        scanner.close();
+    }
+
+    private static int factorial(int n) {
+        int fact = 1;
+        for (int i = 1; i <= n; i++) {
+            fact *= i;
+        }
+        return fact;
+    }
+}
+
+
+Maximum absolute difference between 2 elements in the array
+---------------------
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+    
+        int size = input.nextInt();
+        int[] array = new int[size];
+       
+        for (int i = 0; i < size; i++) {
+            array[i] = input.nextInt();
+        }
+        int maxDiff = 0;
+        for (int i = 0; i < array.length - 1; i++) {
+            for (int j = i + 1; j < array.length; j++) {
+                int diff = Math.abs(array[i] - array[j]);
+                if (diff > maxDiff) {
+                    maxDiff = diff;
+                }
+            }
+        }
+        System.out.println("The maximum absolute difference is: " + maxDiff);
+    }
+} this approach takes O(n^2)
+
+better apprpach is
+----------------------
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+        int size = input.nextInt();
+        int[] array = new int[size];
+
+        for (int i = 0; i < size; i++) {
+            array[i] = input.nextInt();
+        }
+
+        int max = array[0];
+        int min = array[0];
+
+        for (int i = 1; i < size; i++) {
+            if (array[i] > max) {
+                max = array[i];
+            }
+            if (array[i] < min) {
+                min = array[i];
+            }
+        }
+
+        int maxDiff = max - min;
+        System.out.println("The maximum absolute difference is: " + maxDiff);
+    }
+}
+
+
+First repeating element
+------------------------
+import java.util.Scanner;
+
+class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        int[] arr = new int[n];
+        for (int i = 0; i < n; i++) {
+            arr[i] = sc.nextInt();
+        }
+        int min = -1;
+        for (int i = 0; i < arr.length; i++) {
+            for (int j = i + 1; j < arr.length; j++) {
+                if (arr[i] == arr[j]) {
+                    min = i;
+                    break;
+                }
+            }
+            if (min != -1) {
+                break;
+            }
+        }
+        if (min != -1)
+            System.out.println("The first repeating element is " + arr[min]);
+        else
+            System.out.println("There are no repeating elements");
+    }
+}
+

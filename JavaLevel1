@@ -278,7 +278,7 @@ public class Main {
 }
 
 
-First repeating element
+First repeating element (optimized apprroach)
 ------------------------
 import java.util.Scanner;
 
@@ -306,6 +306,76 @@ class Main {
             System.out.println("The first repeating element is " + arr[min]);
         else
             System.out.println("There are no repeating elements");
+    }
+}
+
+Sum equal to given K (two sum problem) naive approach
+---------------------------------------------
+import java.util.Scanner;
+import java.util.Arrays;
+
+class Main {
+    public static void main(String args[]) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        int[] arr = new int[n];
+        for (int i = 0; i < n; i++) {
+            arr[i] = sc.nextInt();
+        }
+        int sum = sc.nextInt();
+
+        if (hasTwoElementsWithSum(arr, sum)) {
+            System.out.println("Array has two elements with given sum " + sum);
+        } else {
+            System.out.println("Array doesn't have two elements with given sum " + sum);
+        }
+    }
+
+    static boolean hasTwoElementsWithSum(int[] arr, int sum) {
+        int n = arr.length;
+        for (int i = 0; i < n; i++) {
+            for (int j = i + 1; j < n; j++) {
+                if (arr[i] + arr[j] == sum) {
+                    return true;
+                }
+            }
+        }
+        return false;
+
+}
+
+Optimized approach
+------------------------------
+import java.util.Scanner;
+import java.util.HashMap;
+
+class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        int[] arr = new int[n];
+        for (int i = 0; i < n; i++) {
+            arr[i] = sc.nextInt();
+        }
+        int sum = sc.nextInt();
+
+        if (hasTwoElementsWithSum(arr, sum)) {
+            System.out.println("Array has two elements with given sum " + sum);
+        } else {
+            System.out.println("Array doesn't have two elements with given sum " + sum);
+        }
+    }
+
+    static boolean hasTwoElementsWithSum(int[] arr, int sum) {
+        HashMap<Integer, Integer> map = new HashMap<>();
+        for (int i = 0; i < arr.length; i++) {
+            int complement = sum - arr[i];
+            if (map.containsKey(complement)) {
+                return true;
+            }
+            map.put(arr[i], i); // Store the current element with its index.
+        }
+        return false;
     }
 }
 

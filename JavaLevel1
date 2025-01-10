@@ -278,6 +278,65 @@ public class Main {
 }
 
 
+First non repeating character: Naive approach
+--------------------------------------
+#include <stdio.h>
+#include <string.h>
+
+int main() {
+    char str[] = "ssiaa";
+    int n = strlen(str);
+    int freq[256] = {0};
+
+    for (int i = 0; i < n; i++) {
+        freq[str[i]]++;
+    }
+
+    for (int i = 0; i < n; i++) {
+        if (freq[str[i]] == 1) {
+            printf("Fist Non-Repeating Character: %c\n", str[i]);
+            return 0;
+        }
+    }
+    printf("No Non-Repeating Character Found\n");
+    return 0;
+}
+
+Better approach
+-----------------------
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String str = sc.nextLine();
+        HashMap<Character, Integer> charCount = new HashMap<>();
+        for (char c : str.toCharArray()) {
+            charCount.put(c, charCount.getOrDefault(c, 0) + 1);
+        }
+        for (Map.Entry<Character, Integer> entry : charCount.entrySet()) {
+            if (entry.getValue() == 1) {
+                System.out.println("First non-repeating character: " + entry.getKey());
+                return;
+            }
+        }
+        System.out.println("No non-repeating character found.");
+    }
+}
+
+OR use 
+--------------
+ for (char c : str.toCharArray()) {
+            if (charCount.get(c) == 1) {
+                System.out.println("First non-repeating character: " + c);
+                return;
+            }
+        }
+
+----------------------------------
 First repeating element (optimized apprroach)
 ------------------------
 import java.util.Scanner;
@@ -344,6 +403,7 @@ class Main {
 
 }
 
+------------------------------
 Optimized approach
 ------------------------------
 import java.util.Scanner;
@@ -379,3 +439,285 @@ class Main {
     }
 }
 
+
+Diagonal Sum of 2D matrix:
+-----------------------------
+import java.util.Scanner;
+class disgonalSum
+{  
+ public static void main(String args[])
+ {
+ Scanner sc = new Scanner(System.in);
+ 
+ int i,j,row,col,sum=0;
+ row = sc.nextInt();
+ col = sc.nextInt();
+ 
+ int[][] mat = new int[row][col];
+     for(i=0;i<row;i++)
+     { 
+      for(j=0;j<col;j++)
+      { 
+          mat[i][j] = sc.nextInt();
+     }
+ }
+ 
+     for(i=0;i<row;i++)
+     { 
+      for(j=0;j<col;j++)
+      { 
+         if(i==j) 
+         {
+         sum = sum + mat[i][j];
+         }
+       }
+    }
+ 
+     System.out.println(sum) ;
+ } 
+}
+
+Normal Matrix
+-=--------------------
+import java.util.Scanner;
+
+public class MatrixNormal {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println("Enter the number of rows: ");
+        int rows = sc.nextInt();
+        System.out.println("Enter the number of columns: ");
+        int cols = sc.nextInt();
+
+        int[][] matrix = new int[rows][cols];
+        System.out.println("Enter the elements of the matrix:");
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                matrix[i][j] = sc.nextInt();
+            }
+        }
+
+        double normal = 0;
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                normal += Math.pow(matrix[i][j], 2);
+            }
+        }
+
+        normal = Math.sqrt(normal);
+        System.out.printf("The normal of the matrix is: %.2f\n", normal);
+    }
+}
+
+Transpose of a given matrix
+-------------------------------
+public class transpose {
+    public static void main(String[] args) {
+                // Example matrix
+                int[][] originalMatrix = {
+                    {1, 2},
+                    {4, 5},
+                    {7, 8}
+                };
+        
+                // Transposing the matrix
+                int[][] transposedMatrix = transpose1(originalMatrix);
+        
+                // Printing the transposed matrix
+                System.out.println("Original Matrix:");
+                printMatrix(originalMatrix);
+                
+                System.out.println("Transposed Matrix:");
+                printMatrix(transposedMatrix);
+            }
+        
+            public static int[][] transpose1(int[][] matrix) {
+                int rows = matrix.length;
+                int cols = matrix[0].length;
+                int[][] transposed = new int[cols][rows];
+        
+                for (int i = 0; i < rows; i++) {
+                    for (int j = 0; j < cols; j++) {
+                        transposed[j][i] = matrix[i][j];
+                    }
+                }
+                
+                return transposed;
+            }
+        
+            public static void printMatrix(int[][] matrix) {
+                for (int[] row : matrix) {
+                    for (int value : row) {
+                        System.out.print(value + " ");
+                    }
+                    System.out.println();
+                }
+            }
+        }
+Transpose of a given square matrix
+-----------------------------------------
+         for (i = 0; i < N; i++) 
+        for (j = 0; j < N; j++) 
+            B[i][j] = A[j][i]; 
+----------------------------- OR using temp variable------------------
+ for(int i=0; i<m; i++)
+        for(int j=0; j<n; j++)
+            int temp = matrix[i][j];  
+            matrix[i][j] = matrix[j][i];  
+            matrix[j][i] = temp;  
+
+
+ROW SUM and COL SUM
+-------------------------
+import java.util.Scanner;
+
+public class MatrixSum {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        
+        System.out.println("Enter the size of the square matrix (n x n):");
+        int n = sc.nextInt();
+        
+        int[][] matrix = new int[n][n];
+        
+        System.out.println("Enter the elements of the matrix:");
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                matrix[i][j] = sc.nextInt();
+            }
+        }
+
+        // Row sum
+        System.out.println("Row sums:");
+        for (int i = 0; i < n; i++) {
+            int rowSum = 0;
+            for (int j = 0; j < n; j++) {
+                rowSum += matrix[i][j];
+            }
+            System.out.println("Sum of row " + (i + 1) + ": " + rowSum);
+        }
+
+        // Column sum
+        System.out.println("Column sums:");
+        for (int j = 0; j < n; j++) {
+            int colSum = 0;
+            for (int i = 0; i < n; i++) {
+                colSum += matrix[i][j];
+            }
+            System.out.println("Sum of column " + (j + 1) + ": " + colSum);
+        }
+    }
+}
+
+Palindrome String problem
+-------------------------------
+import java.util.*;
+import java.util.Scanner;
+class Main
+{
+   public static void main(String args[])
+   {
+      String str, reverse = ""; 
+      Scanner in = new Scanner(System.in);
+     
+      str = in.nextLine();
+     
+      int length = str.length();
+      for (int i = length - 1; i >= 0; i--)
+         reverse = reverse + str.charAt(i);
+     if (str.equals(reverse))
+         System.out.println("Palindrome");
+      else
+         System.out.println("Not a palindrome");
+}     
+}
+The above code can be optimized by avoiding repeated string concatenation, which is inefficient due to the creation of new strings at each step. 
+Instead, we can use a StringBuilder to reverse the string, as it operates in-place and is more efficient.
+
+import java.util.Scanner;
+
+class Main {
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        String str = in.nextLine();  //  String lowerStr = str.toLowerCase();
+        StringBuilder reverse = new StringBuilder(str).reverse(); //  StringBuilder reverse = new StringBuilder(lowerStr).reverse();
+        if (str.equals(reverse.toString())) {
+            System.out.println("Palindrome");
+        } else {
+            System.out.println("Not a palindrome");
+        }
+    }
+}
+
+Replace spaces in string
+-----------------------------------
+import java.util.Scanner;
+class Main {
+   public static void main(String[] args){
+      Scanner in=new Scanner(System.in);
+      String str ;
+      str=in.nextLine();
+      str = str.replaceAll(" ", "");
+      System.out.println(str);
+   }
+}
+
+If you want to remove all kinds of whitespace (e.g., tabs, newlines), you can use:
+str = str.replaceAll("\\s", "");
+
+
+Find smallest and largest word in a given string
+----------------------------------------------------
+import java.util.Scanner;
+
+class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter a string: ");
+        String str = sc.nextLine();
+
+        String[] words = str.split(" ");
+
+        String largestWord = words[0];
+        String smallestWord = words[0];
+
+        for (String word : words) {
+            if (word.length() > largestWord.length()) {
+                largestWord = word;
+            }
+            if (word.length() < smallestWord.length()) {
+                smallestWord = word;
+            }
+        }
+        System.out.println("Largest word: " + largestWord);
+        System.out.println("Smallest word: " + smallestWord);
+    }
+}
+
+You are given two strings, str1 and str2. Write a program to compare these two strings and determine their lexicographic order.
+Lexicographic order, also known as dictionary order, is a way of arranging words based on the alphabetical order of their characters.
+In lexicographic order, a string comes before another if its first character is smaller than the corresponding character in the other string. If the first characters are the same, the second characters are compared, and so on until a difference is found or one of the strings ends.
+Your task is to compare str1 and str2 using the compareTo method. The compareTo method returns an integer value, where:
+
+If str1 comes before str2 in lexicographic order, the result is a negative integer.
+If str1 comes after str2 in lexicographic order, the result is a positive integer.
+If str1 is equal to str2 in lexicographic order, the result is zero.
+
+import java.util.Scanner;
+class Main{
+ public static void main(String args[]) {
+     Scanner in=new Scanner(System.in);
+      String str1,str2;
+      str1=in.nextLine();
+      str2=in.nextLine();
+      int result = str1.compareTo( str2 );
+      System.out.println(result);
+   }
+}
+example:
+-------------
+arun
+htur
+-7

@@ -721,3 +721,44 @@ example:
 arun
 htur
 -7
+
+
+Classes and Object
+---------------------------------
+import java.util.Scanner;
+
+class Doctor {
+    String name;
+    String address;
+    String wardNumber;
+
+    // Constructor to initialize the attributes
+    public Doctor(String name, String address, String wardNumber) {
+        this.name = name;
+        this.address = address;
+        this.wardNumber = wardNumber;
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        // Input the doctor's details
+        System.out.println("Enter the doctor's name:");
+        String name = sc.nextLine();
+        System.out.println("Enter the doctor's address:");
+        String address = sc.nextLine();
+        System.out.println("Enter the doctor's ward number:");
+        String wardNumber = sc.nextLine();
+
+        // Create an instance of Doctor
+        Doctor doctor = new Doctor(name, address, wardNumber);
+
+        // Display the details
+        System.out.println("Name : " + doctor.name);
+        System.out.println("Address : " + doctor.address);
+        System.out.println("Ward Number : " + doctor.wardNumber);
+    }
+}
+

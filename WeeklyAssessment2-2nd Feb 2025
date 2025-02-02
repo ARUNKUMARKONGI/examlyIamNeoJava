@@ -142,3 +142,132 @@ int main()
 
     return 0;
 }
+
+
+--------------------------
+print prime numbers upto given N
+Input 1 :
+5
+Output 1 :
+2 3 5 7 11 
+-------------------------------------
+// You are using GCC
+#include <stdio.h>
+#include <math.h>
+
+int isPrime(int n) {
+    if (n <= 1) return 0;
+    for (int i = 2; i <= sqrt(n); i++) { 
+        if (n % i == 0) {
+            return 0; 
+        }
+    }
+    return 1; 
+}
+
+int main()
+ {
+     int n;
+     scanf("%d",&n);
+     int count=0;
+     int i=2;
+     while (count<n)
+     {
+        if (isPrime(i)) 
+        {
+            printf("%d ", i);
+            count++;
+        }
+        i++;
+    }
+
+    return 0;
+}
+
+
+----------------------------------------
+Armstrong Number
+input:
+Explanation
+For the input 153, the program calculates the sum of digits cubed (13 + 53 + 33), resulting in 153. It's a Arsmstrong
+input is same as cube root of its digits
+-----------------------------------------
+
+class ArmstrongNumberLogic {
+    public void checkArmstrongNumber(int n) {
+        int sum = 0, temp, remainder, digits = 0;
+
+        temp = n;
+
+        while (temp != 0) {
+            digits++;
+            temp = temp / 10;
+        }
+
+        temp = n;
+
+        while (temp != 0) {
+            remainder = temp % 10;
+            sum = sum + (int) Math.pow(remainder, digits);//In Java, the method Math.pow() returns a value of type double, type cast to int
+            temp = temp / 10;
+        }
+
+        // Check if the number is Armstrong or not
+        if (n == sum)
+            System.out.println(n + " Hi Janu");
+        else
+            System.out.println(n + " Bye Janu");
+    }
+}
+
+
+----------------------
+Right rotate array
+if array is 1,2,3 right rotation of array by 2 positions will give 2,3,1
+if you want to right rotation of array by 5 positions still array will be 3,1,2
+
+read array size
+read the d the number of rotations
+read the array elements
+
+take d=d%n to avoid unnecessary rotations (useful when rotation value bigger than array size)
+calculate shift= n-d (last d elements come to front of array)
+
+loop from i=n-d to n and print array elements
+loop from i=0 to n-d and print array elements
+
+or use single for loop for i=0 to n
+and print arr[(i+shift)%n]
+n - d is used to calculate the starting index from where the rotated array should begin after performing the right rotation.
+
+import java.util.Scanner;
+class RightRotation {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt(); 
+        int[] arr = new int[n];
+        
+        // Input the participant numbers
+        for (int i = 0; i < n; i++) {
+            arr[i] = sc.nextInt();
+        }
+
+        int d = sc.nextInt();  // Number of positions to rotate
+
+        d = d % n;  // Ensure d is within the bounds of the array size
+
+        int shift = n - d;  // Starting index of the rotated array
+
+        // Print elements from n-d to n
+        for (int i = shift; i < n; i++) {
+            System.out.print(arr[i] + " ");
+        }
+
+        // Print elements from 0 to n-d
+        for (int i = 0; i < shift; i++) {
+            System.out.print(arr[i] + " ");
+        }
+
+        sc.close();
+    }
+}

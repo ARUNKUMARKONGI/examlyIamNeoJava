@@ -30,8 +30,30 @@ public class Main {
         sc.close();
     }
 
+naive approach
 
-
+public class UniqueElementsNaive {
+    public static void main(String[] args) {
+        int[] array = {4, 5, 9, 4, 5, 6, 7, 8, 9, 10};
+        
+        System.out.println("Unique elements in the array:");
+        for (int i = 0; i < array.length; i++) {
+            boolean isUnique = true;
+            
+            // Compare the current element with all other elements
+            for (int j = 0; j < array.length; j++) {
+                if (i != j && array[i] == array[j]) {
+                    isUnique = false; // Mark as not unique if duplicate found
+                    break;
+                }
+            }
+            
+            if (isUnique) {
+                System.out.print(array[i] + " ");
+            }
+        }
+    }
+}
 ---------------------------
 Odd and even array separation
 input=

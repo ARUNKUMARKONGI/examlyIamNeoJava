@@ -31,24 +31,35 @@ public class Main {
     }
 
 naive approach
+----------------------------------------------
+package Arrays1D2DProblems;
+import java.util.*;
+public class printarrayelementsonce {
 
-public class UniqueElementsNaive {
     public static void main(String[] args) {
-        int[] array = {4, 5, 9, 4, 5, 6, 7, 8, 9, 10};
+          Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        int[] array = new int[n];
+        // HashSet<Integer> set = new HashSet<>();
         
-        System.out.println("Unique elements in the array:");
+        for (int i = 0; i < n; i++) {
+            array[i] = sc.nextInt();
+        }
+        
+        // System.out.println("Elements printed only once (duplicates removed):");
         for (int i = 0; i < array.length; i++) {
-            boolean isUnique = true;
+            boolean isDuplicate = false;
             
-            // Compare the current element with all other elements
-            for (int j = 0; j < array.length; j++) {
-                if (i != j && array[i] == array[j]) {
-                    isUnique = false; // Mark as not unique if duplicate found
+            // Check if the element has appeared before in the array
+            for (int j = 0; j < i; j++) {
+                if (array[i] == array[j]) {
+                    isDuplicate = true; // Mark as duplicate
                     break;
                 }
             }
             
-            if (isUnique) {
+            // Print the element if it is not a duplicate
+            if (isDuplicate == false) {
                 System.out.print(array[i] + " ");
             }
         }

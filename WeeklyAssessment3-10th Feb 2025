@@ -136,3 +136,107 @@ public class Main {
         sc.close();
     }
 }
+
+
+Problem Statement
+
+
+
+Form the minimum number from the given sequence:
+
+
+
+Given a pattern containing only I's and D's. I for increasing, and D for decreasing. Device an algorithm to print the minimum number following that pattern. Digits from 1–9 and digits can't repeat.
+
+
+
+Examples: 
+
+
+Input format :
+The input consists of a single line string input consisting of characters 'I' and 'D' only, where:
+'I' stands for "Increasing".
+'D' stands for "Decreasing".
+Output format :
+The output displays a single line string representing the minimum number that can be formed following the given sequence of 'I's and 'D's.
+Code constraints :
+1 ≤ length of string ≤ 8
+
+Sample test cases :
+Input 1 :
+ID
+Output 1 :
+132
+Input 2 :
+D
+Output 2 :
+21
+Input 3 :
+IDDD
+Output 3 :
+15432
+------------------
+Algorithm
+We iterate through the pattern character by character.
+We keep track of consecutive 'D' characters (dCount).
+When an 'I' is encountered, we print immediately.
+When a 'D' sequence ends (or at the end of the string), we print numbers in reverse order to ensure a decreasing sequence.
+------------------
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String pattern = sc.next();
+        String result = "";
+        int num = 1;
+        int dCount = 0;
+
+        for (int i = 0; i <= pattern.length(); i++) {
+            dCount++;
+            if (i == pattern.length() || pattern.charAt(i) == 'I') {
+                for (int j = dCount; j >= 1; j--) {
+                    result += (num + j - 1);
+                }
+                num += dCount;
+                dCount = 0;
+            }
+        }
+
+        System.out.println(result);
+        sc.close();
+    }
+}
+
+num → Represents the smallest number available to use.
+j → Counts down from dCount to 1, ensuring that the decreasing sequence is handled correctly.
+num + j - 1 → Determines the correct digit to append in the decreasing order.
+
+
+----------------
+using stack
+---------------
+import java.util.Scanner;
+import java.util.Stack;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String pattern = sc.next();
+        StringBuilder result = new StringBuilder();
+        Stack<Integer> stack = new Stack<>();
+
+        for (int i = 0; i <= pattern.length(); i++) {
+            stack.push(i + 1);
+
+            if (i == pattern.length() || pattern.charAt(i) == 'I') {
+                while (!stack.isEmpty()) {
+                    result.append(stack.pop());
+                }
+            }
+        }
+
+        System.out.println(result.toString());
+        sc.close();
+    }
+}

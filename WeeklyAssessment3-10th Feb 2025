@@ -1,3 +1,12 @@
+Input 1 :
+ANDARTICA
+Output 1 :
+AND$RTIC$
+Input 2 :
+bananB
+Output 2 :
+bananB
+
 import java.util.Scanner;
 
 public class Main {
@@ -12,8 +21,13 @@ public class Main {
         System.out.println(modifiedString);
     }
 }
-
-
+-----------------------------------------
+2 3
+27 38 59
+73 88 99
+Output 1 :
+27 38 59 SUM: 124
+73 88 99 SUM: 260
 import java.util.Scanner;
 
 public class Main {
@@ -80,32 +94,6 @@ public class Main {
     }
 }
 
-
-import java.util.Scanner;
-
-public class Main {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        int n = sc.nextInt();
-        String[] arr = new String[n];
-
-        for (int i = 0; i < n; i++) {
-            arr[i] = sc.next();
-        }
-
-        int maxLength = 0;
-
-        for (int i = 0; i < n; i++) {
-            int length = arr[i].length();
-            if (length > maxLength) {
-                maxLength = length;
-            }
-        }
-
-        System.out.println(maxLength);
-        sc.close();
-    }
-}
 ------------------------------------------
 Largest String among array of strings
 -----------------------------------------
@@ -178,6 +166,39 @@ public class Main {
         }
 
         System.out.println(result.toString());
+        sc.close();
+    }
+}
+
+-------------------------------
+sorted rows count in 2D array
+-------------------------------
+import java.util.Scanner;
+
+public class SortedRowsCount {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int m = sc.nextInt();
+        int n = sc.nextInt();
+        int[][] mat = new int[m][n];
+
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                mat[i][j] = sc.nextInt();
+            }
+        }
+
+        int count = 0;
+        for (int i = 0; i < m; i++) {
+            boolean increasing = true, decreasing = true;
+            for (int j = 1; j < n; j++) {
+                if (mat[i][j] <= mat[i][j - 1]) increasing = false;
+                if (mat[i][j] >= mat[i][j - 1]) decreasing = false;
+            }
+            if (increasing || decreasing) count++;
+        }
+
+        System.out.println(count);
         sc.close();
     }
 }

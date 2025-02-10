@@ -1,3 +1,48 @@
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String str1 = sc.nextLine();
+        sc.close();
+        
+        char firstChar = str1.charAt(0);
+        String modifiedString = firstChar + str1.substring(1).replace(firstChar, '$');
+        
+        System.out.println(modifiedString);
+    }
+}
+
+
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int rows = sc.nextInt();
+        int cols = sc.nextInt();
+        int[][] matrix = new int[rows][cols];
+
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                matrix[i][j] = sc.nextInt();
+            }
+        }
+
+        for (int i = 0; i < rows; i++) {
+            int sum = 0;
+            for (int j = 0; j < cols; j++) {
+                System.out.print(matrix[i][j] + " ");
+                sum += matrix[i][j];
+            }
+            System.out.println("SUM: " + sum);
+        }
+        
+        sc.close();
+    }
+}
+
+
 Innput 1 :
 5
 English Math Science EVS General

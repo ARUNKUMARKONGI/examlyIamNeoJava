@@ -45,3 +45,125 @@ class TwoWordMessagePrinter extends MessagePrinter {
         System.out.println("Overloaded: " + message + " & " + message2);
     }
 }
+------------------------------
+import java.io.*;
+import java.lang.Math.*;
+import java.util.*;
+
+abstract class Shape {
+    abstract void rectangleArea(int l,int b);
+    abstract void squareArea(int s);
+    abstract void circleArea(int r);
+}
+
+class Area extends Shape {
+    public void rectangleArea(int l,int b) {
+        System.out.println(l*b);
+    }
+    public void squareArea(int s) {
+        System.out.println(s*s);
+    }
+    public void circleArea(int r) {
+        double res = Math.PI * r * r;
+        System.out.printf("%.2f\n", res);
+    }
+}
+
+class Main {
+    public static void main(String [] args) {
+        int length, breadth, radius, side;
+        Scanner sc = new Scanner(System.in);
+        length = sc.nextInt();
+        breadth = sc.nextInt();
+        side = sc.nextInt();
+        radius = sc.nextInt();
+        Area a = new Area();
+        a.rectangleArea(length, breadth);
+        a.squareArea(side);
+        a.circleArea(radius);
+        sc.close();
+    }
+}
+
+----------------
+import java.util.Scanner;
+
+interface Total {
+    void printCoins(int arr[], int n);
+}
+
+class Coin implements Total {
+    public void printCoins(int arr[], int n) {
+        int oddSum = 0, evenSum = 0;
+        for (int i = 0; i < n; i++) {
+            if (i % 2 == 0) {
+                oddSum += arr[i];
+            } else {
+                evenSum += arr[i];
+            }
+        }
+        int start = (oddSum > evenSum) ? 0 : 1;
+        for (int i = start; i < n; i += 2) {
+            System.out.print(arr[i] + " ");
+        }
+    }
+}
+
+class Main {
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        int n1 = in.nextInt();
+        if (n1 % 2 != 0) {
+            System.out.print("Enter valid number");
+            return;
+        }
+        int arr1[] = new int[n1];
+        for (int i = 0; i < n1; i++) {
+            arr1[i] = in.nextInt();
+        }
+        in.close();
+        Coin obj = new Coin();
+        obj.printCoins(arr1, n1);
+    }
+}
+------------------------
+import java.util.Scanner;
+
+class Employee {
+    int empId;
+    float salary;
+
+    Employee(int empId, float salary) {
+        this.empId = empId;
+        this.salary = salary;
+    }
+
+    void display() {
+        System.out.println(empId);
+        System.out.println(salary);
+    }
+}
+
+class EmpLevel extends Employee {
+    EmpLevel(int empId, float salary) {
+        super(empId, salary);
+    }
+
+    void displayLevel() {
+        int level = (salary > 100) ? 1 : 2;
+        display();
+        System.out.println(level);
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        int empId = scanner.nextInt();
+        float salary = scanner.nextFloat();
+        EmpLevel emp = new EmpLevel(empId, salary);
+        emp.displayLevel();
+        scanner.close();
+    }
+}
+

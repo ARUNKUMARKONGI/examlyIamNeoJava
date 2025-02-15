@@ -168,3 +168,91 @@ public class Main {
     }
 }
 
+------------------------------------------------------------------------
+import java.util.Scanner;
+
+class Box {
+    double width;
+    double height;
+    double depth;
+}
+
+class Main {
+    public static void main(String args[]) {
+        Box mybox = new Box();
+        double vol;
+        
+        Scanner sc = new Scanner(System.in);
+
+        mybox.width = sc.nextDouble();
+        mybox.height = sc.nextDouble();
+        mybox.depth = sc.nextDouble();
+
+        if (mybox.width > 0 && mybox.height > 0 && mybox.depth > 0) {
+            vol = mybox.width * mybox.height * mybox.depth;
+            System.out.printf("Volume: %.2f", vol);
+        } 
+
+        sc.close();
+    }
+}
+----------------------------------------------------------------------------------
+import java.util.Scanner;
+
+class Student {
+    int rollno, mark1, mark2, mark3, total;
+
+    Student(int rollno, int mark1, int mark2, int mark3) {
+        this.rollno = rollno;
+        this.mark1 = mark1;
+        this.mark2 = mark2;
+        this.mark3 = mark3;
+        this.total = mark1 + mark2 + mark3;
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        Student[] students = new Student[n];
+
+        int highestMark1 = 0, highestMark2 = 0, highestMark3 = 0;
+        int highestTotal = 0, topRollno1 = -1, topRollno2 = -1, topRollno3 = -1, topTotalRollno = -1;
+
+        for (int i = 0; i < n; i++) {
+            int rollno = sc.nextInt();
+            int mark1 = sc.nextInt();
+            int mark2 = sc.nextInt();
+            int mark3 = sc.nextInt();
+
+            students[i] = new Student(rollno, mark1, mark2, mark3);
+
+            System.out.println(students[i].total);
+
+            if (mark1 > highestMark1) {
+                highestMark1 = mark1;
+                topRollno1 = rollno;
+            }
+            if (mark2 > highestMark2) {
+                highestMark2 = mark2;
+                topRollno2 = rollno;
+            }
+            if (mark3 > highestMark3) {
+                highestMark3 = mark3;
+                topRollno3 = rollno;
+            }
+            if (students[i].total > highestTotal) {
+                highestTotal = students[i].total;
+                topTotalRollno = rollno;
+            }
+        }
+
+        System.out.println(topRollno1 + " " + highestMark1);
+        System.out.println(topRollno2 + " " + highestMark2);
+        System.out.println(topRollno3 + " " + highestMark3);
+        System.out.println(topTotalRollno + " " + highestTotal);
+
+        sc.close();
+    }
+}

@@ -1,18 +1,31 @@
 import java.util.Scanner;
 
-class Main {
+class MessagePrinter {
+    public void display(String message) {
+        System.out.println("Overloaded: " + message);
+    }
+}
+
+class TwoWordMessagePrinter extends MessagePrinter {
+    public void display(String word1, String word2) {
+        System.out.println("Overloaded: " + word1 + " & " + word2);
+    }
+}
+
+public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-
-        String message1 = scanner.nextLine().trim();
-        MessagePrinter messagePrinter1 = new MessagePrinter(message1);
-        messagePrinter1.display();
-
-        String message2 = scanner.nextLine().trim();
-        String[] splitMessage = message2.split(" ");
-        if (splitMessage.length == 2) {
-            MessagePrinter messagePrinter2 = new TwoWordMessagePrinter(splitMessage[0], splitMessage[1]);
-            messagePrinter2.display();
+        
+        String message1 = scanner.nextLine();
+        MessagePrinter printer = new MessagePrinter();
+        printer.display(message1);
+        
+        String message2 = scanner.nextLine();
+        String[] words = message2.split(" ");
+        
+        if (words.length == 2) {
+            TwoWordMessagePrinter twoWordPrinter = new TwoWordMessagePrinter();
+            twoWordPrinter.display(words[0], words[1]);
         } else {
             System.out.println("Invalid input");
         }
@@ -21,30 +34,6 @@ class Main {
     }
 }
 
-class MessagePrinter {
-    protected String message;
-
-    public MessagePrinter(String message) {
-        this.message = message;
-    }
-
-    public void display() {
-        System.out.println("Overloaded: " + message);
-    }
-}
-class TwoWordMessagePrinter extends MessagePrinter {
-    private String message2;
-
-    public TwoWordMessagePrinter(String message1, String message2) {
-        super(message1);
-        this.message2 = message2;
-    }
-
-    @Override
-    public void display() {
-        System.out.println("Overloaded: " + message + " & " + message2);
-    }
-}
 ------------------------------
 import java.io.*;
 import java.lang.Math.*;

@@ -1,0 +1,87 @@
+ABSTRACTION IN JAVA
+--------------------------------------------
+When you want to provide default behavior but allow customization:
+An abstract class can provide both fully implemented methods (concrete methods) and abstract methods. This gives you a chance to implement default behavior that can be overridden by subclasses if necessary.
+Example: An abstract class Vehicle might provide a method startEngine() that’s common to all vehicles, but subclasses like Car and Truck might override the method with more specific implementations.
+When you want to limit the instantiation of a class:
+Abstract classes cannot be instantiated, and they force the developer to create subclasses that implement the abstract methods. This helps when you want to prevent direct instantiation of a class.
+Example: You cannot create an instance of Shape directly, but you can instantiate Circle or Rectangle.
+When you want to design a class that is meant to be extended but never used as a standalone class:
+This helps create a foundation for other classes and is useful in building frameworks or libraries.
+Example: A base class in a framework might define general methods that can be customized by extending classes.
+
+Interfaces in Java:
+---------------------------
+Interfaces are used to define a contract for what a class can do, but they don’t provide any implementation. 
+Interfaces are extremely useful when:
+When you want to define a common set of operations across unrelated classes:
+
+Unlike abstract classes, interfaces are not tied to a particular class hierarchy. Multiple classes, even those in different inheritance trees, can implement the same interface.
+Example: A Flyable interface can be implemented by Bird, Airplane, and Drone, even though they don’t share a common superclass.
+When you need to achieve multiple inheritance of behavior:
+
+Java supports multiple inheritance of interfaces, allowing a class to implement multiple interfaces, which is useful when you need the class to have behaviors from different domains.
+Example: A class Smartphone might implement both Callable and Camera interfaces, indicating it can call and take photos.
+When you want to provide a contract without imposing implementation:
+
+Interfaces only declare methods without defining how they should work. This allows the implementers (classes) to provide their own implementation.
+Example: A Sortable interface can be implemented by different classes (e.g., ArrayList, LinkedList), each providing its own way to sort.
+
+A class implementing multiple interfaces:
+
+You can implement multiple interfaces in Java.
+java
+Copy
+interface A {
+    void methodA();
+}
+
+interface B {
+    void methodB();
+}
+
+class Main implements A, B {
+    @Override
+    public void methodA() {
+        System.out.println("Method A implemented");
+    }
+
+    @Override
+    public void methodB() {
+        System.out.println("Method B implemented");
+    }
+}
+Here, Main implements both interfaces A and B.
+
+Why class main implements A extends B is not possible:
+extends is used for inheriting from a single class, and Java allows only single inheritance (i.e., a class can inherit from only one class).
+implements is used to implement interfaces. However, Java does not allow a class to inherit from another class and implement an interface in the same extends clause.
+Correcting your statement:
+If you need to extend a class and implement an interface, it should look like this:
+
+java
+Copy
+class B {
+    // Class B code here
+}
+
+interface A {
+    void someMethod();
+}
+
+class Main extends B implements A {
+    @Override
+    public void someMethod() {
+        System.out.println("Implemented method from interface A");
+    }
+}
+
+only one abstract class can be extended but multiple interfaces can be implemented.
+
+
+Abstraction: You could have an abstract class Vehicle with common properties like speed and fuel, and methods like startEngine(). 
+Specific vehicles like Car, Truck, Motorcycle 
+would inherit Vehicle and implement any vehicle-specific logic.
+
+Interface: You could define an interface ElectricPowered with a method chargeBattery(). 
+Both an electric Car and Scooter classes can implement this interface, even though they are unrelated in the class hierarchy.

@@ -1,0 +1,134 @@
+// You are using Java
+import java.util.Scanner;
+
+class Parent {
+    public void fun(int N) {
+        int sum = 0;
+        
+        // Extract each digit and calculate its square
+        while (N > 0) {
+            int digit = N % 10;    // Get the last digit
+            sum += digit * digit;  // Add the square of the digit to sum
+            N /= 10;               // Remove the last digit
+        }
+        
+        // Print the final sum
+        System.out.println(sum);
+    }
+}
+
+public class Main extends Parent {
+    public static void main(String[] args) {
+        // Create a Scanner object to read input from user
+        Scanner scanner = new Scanner(System.in);
+        int N = scanner.nextInt();
+        Main main = new Main();
+        main.fun(N);
+        scanner.close();
+    }
+}
+
+----------------------------------------------------------
+import java.util.Scanner;
+import java.text.DecimalFormat;
+class AdvancedArithmetic {
+    public double calculateSquareRoot(int num) {
+        return Math.sqrt(num);
+    }
+
+    public double calculateCubeRoot(double num) {
+        return Math.cbrt(num);
+    }
+}
+public class Main {
+    public static void main(String[] args) {
+        AdvancedArithmetic calculator = new AdvancedArithmetic();
+        Scanner scanner = new Scanner(System.in);
+
+        if (scanner.hasNextInt()) {
+            int intNumber = scanner.nextInt();
+            double squareRoot = calculator.calculateSquareRoot(intNumber);
+            System.out.format("%.1f", squareRoot);
+        } else if (scanner.hasNextDouble()) {
+            double doubleNumber = scanner.nextDouble();
+            double cubeRoot = calculator.calculateCubeRoot(doubleNumber);
+            System.out.format("%.1f", cubeRoot);
+        }
+
+        scanner.close();
+    }
+}
+
+--------------------------------------------------------------
+import java.util.Scanner;
+
+public class FuelEfficiency {
+    private double distance;
+    private double fuelConsumed;
+
+    public void setFuelDetails(double dist, double fuel) {
+        distance = dist;
+        fuelConsumed = fuel;
+    }
+
+    public double calculateEfficiency() {
+        return distance / fuelConsumed;
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        double distance = scanner.nextDouble();
+        double fuelConsumed = scanner.nextDouble();
+
+        FuelEfficiency fuelEfficiency = new FuelEfficiency();
+        fuelEfficiency.setFuelDetails(distance, fuelConsumed);
+
+        double efficiency = fuelEfficiency.calculateEfficiency();
+        System.out.printf("%.2f km/l\n", efficiency);
+
+        scanner.close();
+    }
+}
+
+---------------------------------------------
+ in the case of 1234, the individual digits are 4,3,2,1, and the final sum → (4+3)+(4+2)+(4+1)+(3+2)+(3+1)+(2+1) = 30.
+
+import java.util.Scanner;
+
+class Parent {
+    public void fun(int N) {
+        int[] a = new int[10]; // Assuming the number has at most 10 digits
+        int k = 0;
+
+        // Extract digits and store them in the array a[]
+        while (N != 0) {
+            int i = N % 10; // Extract last digit
+            a[k++] = i;     // Store it in the array
+            N = N / 10;     // Remove last digit
+        }
+
+        int sum = 0;
+
+        // Calculate the sum of all combinations of digits
+        for (int i = 0; i < k; i++) {
+            for (int j = i + 1; j < k; j++) {
+                sum += a[i] + a[j];
+            }
+        }
+
+        System.out.println(sum);
+    }
+}
+
+public class Main extends Parent {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        int N = scanner.nextInt();
+        
+        Main main = new Main();
+        main.fun(N);
+
+        scanner.close();
+    }
+}
+

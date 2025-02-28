@@ -1,0 +1,278 @@
+
+Input 1 :
+5
+Banana apple orange grape berry
+Sorted strings:
+apple Banana berry grape orange
+-------------------------------------
+import java.util.*;
+
+class SortStrings {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+
+        String[] inputArray = new String[n];
+
+        for (int i = 0; i < n; i++) {
+            inputArray[i] = sc.next();
+        }
+        List<String> list = Arrays.asList(inputArray);
+        list.sort((s1, s2) -> s1.compareToIgnoreCase(s2));
+        System.out.println("Sorted strings:");
+        list.forEach(s -> System.out.print(s + " "));
+    }
+}
+
+// strings is an array of 
+// Strings (String[]), but the sort() method is a method 
+// of the List interface, not arrays.
+// Arrays.asList(strings)
+// creates a List view of the array, allowing us to use list methods like sort().
+
+----------------------------------------------------------------------------------------------
+Input 1
+8
+1 8 9 6 5 4 7 3
+Output 1 :
+1 64 81 36 25 16 49 9
+
+import java.util.*;
+
+public class SquareNumbers {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        int count = scanner.nextInt();
+        ArrayList<Integer> numbers = new ArrayList<>();
+        for (int i = 0; i < count; i++) {
+            numbers.add(scanner.nextInt()); 
+        }
+        numbers.stream()
+               .map(x -> x * x) 
+               .forEach(x -> System.out.print(x + " "));
+    }
+}
+
+--------------------------------------------------------------------
+Input 1 :
+Hello
+World
+Output 1 :
+Hello World
+
+import java.io.*;
+import java.util.*;
+interface StringConcat {
+
+    public String sconcat(String a, String b);
+}
+class Example {
+
+   public static void main(String args[]) {
+        String s1,s2;
+        Scanner sc = new Scanner(System.in);
+        s1 = sc.nextLine();
+        s2 = sc.nextLine();
+    	StringConcat s = (str1, str2) -> str1 +" "+ str2;
+        System.out.println(s.sconcat(s1, s2));
+    }
+}
+----------------------------------------------------------------------------
+Input 1 :
+4
+541
+Sangeetha
+452
+Arshad
+367
+Ganesh
+456
+Priya
+Output 1 :
+The ranks based on their marks:
+Rank 1: Sangeetha
+Rank 2: Priya
+Rank 3: Arshad
+Rank 4: Ganesh
+
+
+import java.util.*;
+
+ class StudentRanks {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        int n = scanner.nextInt();
+        scanner.nextLine();
+        TreeMap<Integer, String> students = new TreeMap<>(Collections.reverseOrder());
+        for (int i = 0; i < n; i++) {
+            int marks = scanner.nextInt();
+            // scanner.nextLine();
+            String name = scanner.next();
+            students.put(marks, name);
+        }
+        System.out.println("The ranks based on their marks:");
+        int rank = 1;
+        for (Map.Entry<Integer, String> entry : students.entrySet()) {
+            System.out.println("Rank " + rank + ": " + entry.getValue());
+            rank++;
+        }
+    }
+}
+
+// for (String name : students.values()) {
+//     System.out.println("Rank " + rank + ": " + name);
+//     rank++;
+// }
+
+---------------------------------------------------------------------------------------
+
+Arun is writing a Java program that reads a single line of text input from the user and counts the total number of 
+words in that line, ignoring duplicates. 
+Input 2 :
+Word word word word
+Output 2 :
+2
+
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+
+class Main {
+	public static void main (String[] args) throws java.lang.Exception {
+		Scanner input = new Scanner(System. in);
+		String line = input.nextLine();
+		String words[] = line.split(" ");
+		Set<String> strings = new HashSet<String>();
+		for (String word: words) {
+			strings.add(word);
+		}
+		System.out.println(strings.size());
+	}
+}
+
+--------------------------------------------------------------------------------------
+approach 1
+--------------------
+import java.util.*;
+
+class Book {
+    private int id;
+    private String name;
+    private String author;
+    private String publisher;
+    private int quantity;
+
+    public Book(int id, String name, String author, String publisher, int quantity) {
+        this.id = id;
+        this.name = name;
+        this.author = author;
+        this.publisher = publisher;
+        this.quantity = quantity;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    @Override
+    public String toString() {
+        return id + " " + name + " " + author + " " + publisher + " " + quantity;
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        int n = scanner.nextInt();
+        scanner.nextLine();
+        Set<Book> books = new LinkedHashSet<>();
+        for (int i = 0; i < n; i++) {
+            int id = scanner.nextInt();
+            scanner.nextLine();
+            String name = scanner.nextLine();
+            String author = scanner.nextLine();
+            String publisher = scanner.nextLine();
+            int quantity = scanner.nextInt();
+            scanner.nextLine();
+            Book b=new Book(id, name, author, publisher, quantity);
+            books.add(b);
+        }
+        books.forEach(System.out::println);
+        String searchBook = scanner.nextLine();
+        int flag = 0;
+        for (Book b2 : books) {
+            if (b2.getName().equals(searchBook)) {
+                flag = 1;
+                break;
+            }
+        }
+
+        if (flag == 1) {
+            System.out.println(searchBook + " is present in the set");
+        } else {
+            System.out.println(searchBook + " is not present in the set");
+        }
+    }
+}
+
+approach 2
+----------------
+
+import java.util.*;
+
+class Book {
+    private int id;
+    private String name;
+    private String author;
+    private String publisher;
+    private int quantity;
+
+    public Book(int id, String name, String author, String publisher, int quantity) {
+        this.id = id;
+        this.name = name;
+        this.author = author;
+        this.publisher = publisher;
+        this.quantity = quantity;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    @Override
+    public String toString() {
+        return id + " " + name + " " + author + " " + publisher + " " + quantity;
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        int n = scanner.nextInt();
+        scanner.nextLine();
+        Set<Book> books = new LinkedHashSet<>();
+        for (int i = 0; i < n; i++) {
+            int id = scanner.nextInt();
+            scanner.nextLine();
+            String name = scanner.nextLine();
+            String author = scanner.nextLine();
+            String publisher = scanner.nextLine();
+            int quantity = scanner.nextInt();
+            scanner.nextLine();
+            books.add(new Book(id, name, author, publisher, quantity));
+        }
+        books.forEach(System.out::println);
+        String searchName = scanner.nextLine();
+        boolean found = books.stream().anyMatch(book -> book.getName().equals(searchName));
+        System.out.println(searchName + (found ? " is present in the set" : " is not present in the set"));
+    }
+}
+
+We use LinkedHashSet here because it gives us two important features:
+Maintains Insertion Order:
+Unlike HashSet, which doesn’t guarantee any order, LinkedHashSet keeps the elements in the order they were added.
+Since we want to display book details in the same sequence as they were entered, this is perfect.
+
+No Duplicates:
+LinkedHashSet ensures every book is unique. If two books with the same details are added, only one will be stored.
+This is essential when we want a unique collection of books.

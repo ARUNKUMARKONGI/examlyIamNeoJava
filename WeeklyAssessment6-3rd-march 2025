@@ -52,6 +52,7 @@ public class SquareNumbers {
                .forEach(x -> System.out.print(x + " "));
     }
 }
+Stream map(Function mapper) returns a stream consisting of the results of applying the given function to the elements of this stream.
 
 --------------------------------------------------------------------
 Input 1 :
@@ -77,6 +78,7 @@ class Example {
         System.out.println(s.sconcat(s1, s2));
     }
 }
+we can create object of interface if its a functional interface
 ----------------------------------------------------------------------------
 Input 1 :
 4
@@ -185,7 +187,7 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         int n = scanner.nextInt();
         scanner.nextLine();
-        Set<Book> books = new LinkedHashSet<>();
+        LinkedHashSet<Book> books = new LinkedHashSet<>();
         for (int i = 0; i < n; i++) {
             int id = scanner.nextInt();
             scanner.nextLine();

@@ -50,6 +50,34 @@ class SortStrings {
 // Arrays.asList(strings)
 // creates a List view of the array, allowing us to use list methods like sort().
 
+Aother approach using Collections.sort(arr) but it wont match all test cases because
+Output: Apple Banana Cherry apple banana cherry  
+Here, all uppercase words come before lowercase words because of their ASCII values — uppercase letters have lower ASCII values than lowercase ones.
+Output: apple Apple Banana banana cherry Cherry  
+This output is a proper alphabetical sort, ignoring case differences between uppercase and lowercase letters.
+
+import java.util.*;
+
+class Main{
+        public static void main(String[]args)
+        {
+            Scanner sc=new Scanner(System.in);
+            int n=sc.nextInt();
+            // sc.nextLine();
+            ArrayList<String> arr = new ArrayList<>();
+            
+            for(int i=0;i<n;i++)
+            {
+                arr.add(sc.next());
+            }
+             Collections.sort(arr);
+            System.out.println("Sorted strings:");
+            for(String i:arr)
+            {
+                System.out.print(i+" ");
+            }
+        }
+}
 ----------------------------------------------------------------------------------------------
 Input 1
 8

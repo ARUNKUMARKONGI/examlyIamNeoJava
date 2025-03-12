@@ -1,0 +1,209 @@
+import java.util.Scanner;
+
+class HallBooking implements Runnable {
+    private String hallName;
+    private Double cost;
+    private Integer hallCapacity;
+    private Integer seatsBooked;
+
+    public HallBooking(String hallName, Double cost, Integer hallCapacity, Integer seatsBooked) {
+        this.hallName = hallName;
+        this.cost = cost;
+        this.hallCapacity = hallCapacity;
+        this.seatsBooked = seatsBooked;
+    }
+
+    @Override
+    public void run() {
+        if (seatsBooked * 100 > cost) {
+            System.out.println(hallName + ": Profit");
+        } else {
+            System.out.println(hallName + ": Loss");
+        }
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        sc.nextLine();
+
+        Thread[] threads = new Thread[n];
+
+        for (int i = 0; i < n; i++) {
+            String hallName = sc.nextLine();
+            Double cost = sc.nextDouble();
+            Integer hallCapacity = sc.nextInt();
+            Integer seatsBooked = sc.nextInt();
+            sc.nextLine();
+
+            HallBooking booking = new HallBooking(hallName, cost, hallCapacity, seatsBooked);
+            threads[i] = new Thread(booking);
+            threads[i].start();
+        }
+
+        for (int i = 0; i < n; i++) {
+            try {
+                threads[i].join();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
+        sc.close();
+    }
+}
+
+-----------------------------------------------
+import java.util.Scanner;
+
+class AttendanceCounter implements Runnable {
+    private int[] attendance;
+    private int start;
+    private int end;
+    private int count = 0;
+
+    public AttendanceCounter(int[] attendance, int start, int end) {
+        this.attendance = attendance;
+        this.start = start;
+        this.end = end;
+    }
+
+    public int getCount() {
+        return count;
+    }
+
+    @Override
+    public void run() {
+        for (int i = start; i < end; i++) {
+            if (attendance[i] == 100) {
+                count++;
+            }
+        }
+    }
+}
+
+public class AttendanceApp {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        int[] attendance = new int[n];
+
+        for (int i = 0; i < n; i++) {
+            attendance[i] = sc.nextInt();
+        }
+
+        int mid = n / 2;
+
+        AttendanceCounter counter1 = new AttendanceCounter(attendance, 0, mid);
+        AttendanceCounter counter2 = new AttendanceCounter(attendance, mid, n);
+
+        Thread thread1 = new Thread(counter1);
+        Thread thread2 = new Thread(counter2);
+
+        thread1.start();
+        thread2.start();
+
+        try {
+            thread1.join();
+            thread2.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        int totalWinners = counter1.getCount() + counter2.getCount();
+        System.out.println("Winners : " + totalWinners);
+
+        sc.close();
+    }
+}
+
+
+-------------------------------
+import java.util.Scanner;
+
+class MatrixMultiplier extends Thread {
+    int[][] result;
+    int[][] mat1;
+    int[][] mat2;
+    int row;
+    int col;
+    int size;
+
+    public MatrixMultiplier(int[][] result, int[][] mat1, int[][] mat2, int row, int col, int size) {
+        this.result = result;
+        this.mat1 = mat1;
+        this.mat2 = mat2;
+        this.row = row;
+        this.col = col;
+        this.size = size;
+    }
+
+    public void run() {
+        for (int k = 0; k < size; k++) {
+            result[row][col] += mat1[row][k] * mat2[k][col];
+        }
+    }
+}
+
+public class MatrixMultiplication {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        int r1 = sc.nextInt(), c1 = sc.nextInt();
+        int r2 = sc.nextInt(), c2 = sc.nextInt();
+
+        if (c1 != r2) {
+            System.out.println("Matrix multiplication not possible");
+            sc.close();
+            return;
+        }
+
+        int[][] mat1 = new int[r1][c1];
+        int[][] mat2 = new int[r2][c2];
+        int[][] result = new int[r1][c2];
+
+        for (int i = 0; i < r1; i++)
+            for (int j = 0; j < c1; j++)
+                mat1[i][j] = sc.nextInt();
+
+        for (int i = 0; i < r2; i++)
+            for (int j = 0; j < c2; j++)
+                mat2[i][j] = sc.nextInt();
+
+        Thread[][] threads = new Thread[r1][c2];
+
+        for (int i = 0; i < r1; i++) {
+            for (int j = 0; j < c2; j++) {
+                threads[i][j] = new MatrixMultiplier(result, mat1, mat2, i, j, c1);
+                threads[i][j].start();
+            }
+        }
+
+        for (int i = 0; i < r1; i++) {
+            for (int j = 0; j < c2; j++) {
+                try {
+                    threads[i][j].join();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        for (int[] row : result) {
+            for (int value : row)
+                System.out.print(value + " ");
+            System.out.println();
+        }
+
+        sc.close();
+    }
+}
+
+
+thread1.join(); makes the main thread (or the thread that calls join()) wait until thread1 finishes its execution.
+Let’s break it down simply:
+
+thread1.start(); → Starts running thread1 independently.
+thread1.join(); → Tells the current thread (like main()) to pause and wait until thread1 completes its task.

@@ -207,3 +207,109 @@ Let’s break it down simply:
 
 thread1.start(); → Starts running thread1 independently.
 thread1.join(); → Tells the current thread (like main()) to pause and wait until thread1 completes its task.
+
+
+---------------------------------------------------------------------FA_-----------------------------------------
+class EvenAndOdd {
+    private int number = 1;
+    private final int limit = 20;
+
+    public synchronized void printOdd() {
+        while (number <= limit) {
+            if (number % 2 == 0) {
+                try {
+                    wait();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (number <= limit) {
+                System.out.println("Thread Odd: " + number);
+                number++;
+                notify();
+            }
+        }
+    }
+
+    public synchronized void printEven() {
+        while (number <= limit) {
+            if (number % 2 != 0) {
+                try {
+                    wait();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (number <= limit) {
+                System.out.println("Thread even: " + number);
+                number++;
+                notify();
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        EvenAndOdd evenAndOdd = new EvenAndOdd();
+
+        Thread oddThread = new Thread(() -> evenAndOdd.printOdd());
+        Thread evenThread = new Thread(() -> evenAndOdd.printEven());
+
+        oddThread.start();
+        evenThread.start();
+    }
+}
+-----------------------------------------------------------------------------------------
+import java.util.Scanner;
+
+class Stall implements Runnable {
+    private String stallName;
+    private String details;
+    private double stallArea;
+    private String owner;
+    private double stallCost;
+
+    public Stall(String stallName, String details, double stallArea, String owner) {
+        this.stallName = stallName;
+        this.details = details;
+        this.stallArea = stallArea;
+        this.owner = owner;
+    }
+
+    @Override
+    public void run() {
+        stallCost = stallArea * 150; // Assuming cost per area unit is 150
+        System.out.println(stallCost);
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int numStalls = sc.nextInt();
+        sc.nextLine();
+
+        Thread[] threads = new Thread[numStalls];
+
+        for (int i = 0; i < numStalls; i++) {
+            String stallName = sc.nextLine();
+            String details = sc.nextLine();
+            double stallArea = Double.parseDouble(sc.nextLine());
+            String owner = sc.nextLine();
+
+            Stall stall = new Stall(stallName, details, stallArea, owner);
+            threads[i] = new Thread(() -> stall.run());
+            threads[i].start();
+        }
+
+        for (int i = 0; i < numStalls; i++) {
+            try {
+                threads[i].join();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
+        sc.close();
+    }
+}
+

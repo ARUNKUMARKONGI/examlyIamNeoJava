@@ -1,0 +1,275 @@
+sample@gmail.com
+Output 1 :
+Valid email address
+Input 2 :
+sample@gmail.com.
+Output 2 :
+DotException: Invalid Dot usage
+Invalid email address
+
+// You are using Java
+import java.util.Scanner;
+
+class DotException extends Exception {
+    public DotException(String message) {
+        super(message);
+    }
+}
+
+class AtTheRateException extends Exception {
+    public AtTheRateException(String message) {
+        super(message);
+    }
+}
+
+class DomainException extends Exception {
+    public DomainException(String message) {
+        super(message);
+    }
+}
+
+class EmailValidator {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String email = sc.nextLine();
+        sc.close();
+
+        try {
+            if (!email.contains(".")) {
+                throw new DotException("DotException: Invalid Dot usage");
+            }
+            if (email.indexOf('@') == -1 || email.indexOf('@') != email.lastIndexOf('@')) {
+                throw new AtTheRateException("AtTheRateException: Invalid @ usage");
+            }
+            String domain = email.substring(email.lastIndexOf('.') + 1);
+            if (!domain.equals("com") && !domain.equals("in") && !domain.equals("net") && !domain.equals("biz")) {
+                throw new DomainException("DomainException: Invalid Domain");
+            }
+            System.out.println("Valid email address");
+        } catch (DotException | AtTheRateException | DomainException e) {
+            System.out.println(e.getMessage());
+            System.out.println("Invalid email address");
+        }
+    }
+}
+---------------------------------------
+import java.util.Scanner;
+
+class InvalidUsernameException extends Exception {
+    public InvalidUsernameException(String message) {
+        super(message);
+    }
+}
+
+public class UsernameValidator {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String username = sc.nextLine();
+        sc.close();
+
+        try {
+            if (username.length() < 5) {
+                throw new InvalidUsernameException("Invalid Username: Username must be at least 5 characters long");
+            }
+            if (username.contains(" ")) {
+                throw new InvalidUsernameException("Invalid Username: Username cannot contain spaces");
+            }
+            System.out.println("Username is valid: " + username);
+        } catch (InvalidUsernameException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+}
+-------------------------------------------------------------------------------
+Naive approach
+---------------
+import java.util.Scanner;
+
+class Calculation {
+    private int range;
+
+    public Calculation(int range) {
+        this.range = range;
+    }
+
+    public synchronized void printSquare() {
+        for (int i = 1; i <= range; i++) {
+            if (i % 2 != 0) {
+                System.out.println("Square: " + (i * i));
+                try {
+                    Thread.sleep(100); // Small delay for proper thread sync
+                } catch (InterruptedException e) {
+                    System.out.println(e.getMessage());
+                }
+            }
+        }
+    }
+
+    public synchronized void printCube() {
+        for (int i = 1; i <= range; i++) {
+            if (i % 2 == 0) {
+                System.out.println("Cube: " + (i * i * i));
+                try {
+                    Thread.sleep(100); // Small delay for proper thread sync
+                } catch (InterruptedException e) {
+                    System.out.println(e.getMessage());
+                }
+            }
+        }
+    }
+}
+another approach
+-------------------
+import java.util.Scanner;
+
+class SquareThread extends Thread {
+    private int num;
+
+    public SquareThread(int num) {
+        this.num = num;
+    }
+
+    public void run() {
+        System.out.println("Square: " + (num * num));
+    }
+}
+
+class CubeThread extends Thread {
+    private int num;
+
+    public CubeThread(int num) {
+        this.num = num;
+    }
+
+    public void run() {
+        System.out.println("Cube: " + (num * num * num));
+    }
+}
+
+public class NumberThreads {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        sc.close();
+
+        for (int i = 1; i <= n; i++) {
+            if (i % 2 == 0) {
+                CubeThread cube = new CubeThread(i);
+                cube.start();
+            } else {
+                SquareThread square = new SquareThread(i);
+                square.start();
+            }
+
+            try {
+                Thread.sleep(100); // Ensures alternating output and avoids overlap
+            } catch (InterruptedException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+}
+
+optimized approach using inter thread communication
+-------------------------------------------------------
+
+What actually happens when notify() is called?
+
+squareThread starts and gets the lock on calculationLock.
+Since printSquare() is a synchronized method, squareThread gets the lock and starts executing.
+
+squareThread prints the square and calls notify().
+notify() tells the JVM that a waiting thread (like cubeThread) is ready to run — but it doesn’t immediately hand over control! The lock is still held by squareThread until it releases it.
+
+squareThread calls wait().
+Here’s where the magic happens:
+
+squareThread releases the lock on calculationLock.
+It goes into waiting state, waiting for the next notify() call.
+cubeThread was waiting — now it wakes up.
+Since cubeThread was waiting for the lock, as soon as squareThread calls wait(), the lock is released, and cubeThread grabs the lock.
+
+cubeThread runs and prints the cube.
+It does its thing and calls notify(), waking up squareThread again.
+
+Cycle repeats.
+
+-------------
+class Calculation {
+    private int number;
+    private boolean isSquareCalculated;
+    private int range;
+
+    public Calculation(int range) {
+        this.number = 1;
+        this.isSquareCalculated = false;
+        this.range = range;
+    }
+
+    public synchronized void printSquare() {
+        while (number <= range) {
+            if (!isSquareCalculated) {
+                System.out.println("Square: " + (number * number));
+                isSquareCalculated = true;
+                number++;
+                notify();
+            } else {
+                try {
+                    wait();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    public synchronized void printCube() {
+        while (number <= range) {
+            if (isSquareCalculated) {
+                System.out.println("Cube: " + (number * number * number));
+                isSquareCalculated = false;
+                number++;
+                notify();
+            } else {
+                try {
+                    wait();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+}
+
+Interrupted Exception: 
+This is a checked exception in Java, which happens when a thread is waiting, sleeping, or doing something blocking, and another thread interrupts it.
+e.printStackTrace():
+This is a method that prints where the exception happened and the sequence of method calls that led to it. It’s super useful for debugging.
+
+-----------------------------------------------
+// You are using Java
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        String buildingName = scanner.nextLine();
+        int lower = scanner.nextInt();
+        int upper = scanner.nextInt();
+
+        System.out.println("Name - " + buildingName);
+
+        Thread temperatureThread = new Thread(() -> {
+            for (int temp = lower; temp <= upper; temp++) {
+                System.out.print(temp + " ");
+                try {
+                    Thread.sleep(5); // Delay of 5 milliseconds
+                } catch (InterruptedException e) {
+                    System.out.println("Temperature thread interrupted.");
+                }
+            }
+        });
+
+        temperatureThread.start();
+    }
+}

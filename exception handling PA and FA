@@ -1,0 +1,112 @@
+import java.io.*;
+import java.util.*;
+class Main {
+	public static void main(String [] args) {
+		Scanner sc = new Scanner(System.in);
+		try {
+			String str = sc.nextLine();
+			int index = sc.nextInt();
+			System.out.println(str.charAt(index));
+		}
+		catch(StringIndexOutOfBoundsException s) {
+			System.out.println(s);
+		}
+	}
+}
+----------------------------------------------------------------
+import java.util.Scanner;
+
+public class ExpenseManager {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int totalCost = sc.nextInt();
+        int days = sc.nextInt();
+        
+        try {
+            System.out.println(totalCost / days);
+        } catch (ArithmeticException e) {
+            System.out.println("Cannot divide by zero");
+        }
+        
+        sc.close();
+    }
+}
+
+-----------------------------------------------------------
+import java.util.Scanner;
+
+class ItemType {
+    private String name;
+    private Double deposit;
+    private Double costPerDay;
+
+    public ItemType(String name, Double deposit, Double costPerDay) {
+        this.name = name;
+        this.deposit = deposit;
+        this.costPerDay = costPerDay;
+    }
+
+    @Override
+    public String toString() {
+        return name + " " + deposit + " " + costPerDay;
+    }
+}
+
+public class ItemTypeApp {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        try {
+            String name = sc.nextLine();
+            Double deposit = Double.parseDouble(sc.nextLine());
+            Double costPerDay = Double.parseDouble(sc.nextLine());
+            ItemType item = new ItemType(name, deposit, costPerDay);
+            System.out.println(item);
+        } catch (NumberFormatException e) {
+            System.out.println(e);
+        }
+        sc.close();
+    }
+}
+
+---------------------
+import java.io.*;
+import java.util.*;
+class Main {
+public static void main(String[] args) {
+	try{
+		Scanner sc = new Scanner(System.in);
+		int size = sc.nextInt();
+		int[] intArray = new int[size];
+		for (int i = 0; i < size; i++) {
+			intArray[i] = sc.nextInt();
+		}
+		    int index = sc.nextInt();
+			sc.close();
+		System.out.println("Value at " + index + " = " + intArray[index]);
+		
+	}
+	catch(ArrayIndexOutOfBoundsException e){
+		System.out.println("Array index out of bound");
+	}
+}
+}
+
+-----------------------------------------
+import java.util.Scanner;
+
+public class DivisionResultPrinter {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        try {
+            int dividend = sc.nextInt();
+            int divisor = sc.nextInt();
+            System.out.println(dividend / divisor);
+        } catch (ArithmeticException e) {
+            System.out.println("Divide by 0");
+        } catch (Exception e) {
+            System.out.println("Invalid input");
+        }
+        sc.close();
+    }
+}
+

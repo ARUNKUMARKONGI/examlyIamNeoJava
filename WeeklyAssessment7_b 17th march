@@ -103,7 +103,6 @@ class Calculation {
             }
         }
     }
-
     public synchronized void printCube() {
         for (int i = 1; i <= range; i++) {
             if (i % 2 == 0) {
@@ -254,3 +253,33 @@ public class Main {
 //class TemperatureThread extends Thread
 //TemperatureThread temperatureThread = new TemperatureThread(lower, upper);
        // temperatureThread.start();
+
+
+--------------------
+above code using lambda so that no need to implement run method separetely
+----------------------
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        String threadName = scanner.nextLine();
+
+        int lowerRange = scanner.nextInt();
+        int upperRange = scanner.nextInt();
+
+        Thread counterThread = new Thread(() -> {
+            System.out.println("Name - " + threadName);
+            for (int i = lowerRange; i <= upperRange; i++) {
+                System.out.print(i + " ");
+                try {
+                    Thread.sleep(5); // Sleep for 5 milliseconds
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        counterThread.start();
+    }
+}

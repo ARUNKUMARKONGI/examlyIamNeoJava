@@ -172,18 +172,17 @@ public class NumberThreads {
 
 optimized approach using inter thread communication
 -------------------------------------------------------
-
 What actually happens when notify() is called?
 
 squareThread starts and gets the lock on calculationLock.
 Since printSquare() is a synchronized method, squareThread gets the lock and starts executing.
 
 squareThread prints the square and calls notify().
-notify() tells the JVM that a waiting thread (like cubeThread) is ready to run — but it doesn’t immediately hand over control! The lock is still held by squareThread until it releases it.
+notify() tells the JVM that a waiting thread (like cubeThread) is ready to run —
+but it doesn’t immediately hand over control! The lock is still held by squareThread until it releases it.
 
 squareThread calls wait().
 Here’s where the magic happens:
-
 squareThread releases the lock on calculationLock.
 It goes into waiting state, waiting for the next notify() call.
 cubeThread was waiting — now it wakes up.
@@ -194,7 +193,7 @@ It does its thing and calls notify(), waking up squareThread again.
 
 Cycle repeats.
 
--------------
+-------------------------------------------------------------
 class Calculation {
     private int number;
     private boolean isSquareCalculated;

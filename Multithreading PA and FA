@@ -1,44 +1,49 @@
 import java.util.Scanner;
 
-class Stall implements Runnable {
-    private String stallName;
-    private String details;
-    private double stallArea;
-    private String owner;
-    private double stallCost;
+class HallBooking implements Runnable {
+    private String hallName;
+    private double cost;
+    private int hallCapacity;
+    private int seatsBooked;
 
-    public Stall(String stallName, String details, double stallArea, String owner) {
-        this.stallName = stallName;
-        this.details = details;
-        this.stallArea = stallArea;
-        this.owner = owner;
+    public HallBooking(String hallName, double cost, int hallCapacity, int seatsBooked) {
+        this.hallName = hallName;
+        this.cost = cost;
+        this.hallCapacity = hallCapacity;
+        this.seatsBooked = seatsBooked;
     }
 
     @Override
     public void run() {
-        this.stallCost = this.stallArea * 150.0;
-        System.out.println(this.stallCost);
+        int revenue = this.seatsBooked * 100;
+        if (revenue > cost) {
+            System.out.println("Profit");
+        } else {
+            System.out.println("Loss");
+        }
     }
 }
+
 public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         int n = Integer.parseInt(sc.nextLine());
-        Thread[] threads = new Thread[n];
 
         for (int i = 0; i < n; i++) {
-            String stallName = sc.nextLine();
-            String details = sc.nextLine();
-            double stallArea = Double.parseDouble(sc.nextLine());
-            String owner = sc.nextLine();
+            String hallName = sc.nextLine();
+            double cost = Double.parseDouble(sc.nextLine());
+            int hallCapacity = Integer.parseInt(sc.nextLine());
+            int seatsBooked = Integer.parseInt(sc.nextLine());
 
-            Stall st = new Stall(stallName, details, stallArea, owner);
-            threads[i] = new Thread(st);
-            threads[i].start();
+            HallBooking hallBooking = new HallBooking(hallName, cost, hallCapacity, seatsBooked);
+            Thread t = new Thread(hallBooking);
+            t.start();
         }
+
         sc.close();
     }
 }
+
 -----------------------------------------------
 import java.util.Scanner;
 

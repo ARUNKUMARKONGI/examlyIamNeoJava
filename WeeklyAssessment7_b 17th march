@@ -194,8 +194,28 @@ e.printStackTrace():
 This is a method that prints where the exception happened and the sequence of method calls that led to it. It’s super useful for debugging.
 
 -----------------------------------------------
-// You are using Java
 import java.util.Scanner;
+
+class TemperatureTask implements Runnable {
+    private int lower;
+    private int upper;
+
+    public TemperatureTask(int lower, int upper) {
+        this.lower = lower;
+        this.upper = upper;
+    }
+
+    public void run() {
+        for (int temp = lower; temp <= upper; temp++) {
+            System.out.print(temp + " ");
+            try {
+                Thread.sleep(5); // Delay of 5 milliseconds
+            } catch (InterruptedException e) {
+                System.out.println("Temperature thread interrupted.");
+            }
+        }
+    }
+}
 
 public class Main {
     public static void main(String[] args) {
@@ -206,17 +226,11 @@ public class Main {
 
         System.out.println("Name - " + buildingName);
 
-        Thread temperatureThread = new Thread(() -> {
-            for (int temp = lower; temp <= upper; temp++) {
-                System.out.print(temp + " ");
-                try {
-                    Thread.sleep(5); // Delay of 5 milliseconds
-                } catch (InterruptedException e) {
-                    System.out.println("Temperature thread interrupted.");
-                }
-            }
-        });
-
+        TemperatureTask task = new TemperatureTask(lower, upper);
+        Thread temperatureThread = new Thread(task);
         temperatureThread.start();
     }
 }
+//class TemperatureThread extends Thread
+//TemperatureThread temperatureThread = new TemperatureThread(lower, upper);
+       // temperatureThread.start();

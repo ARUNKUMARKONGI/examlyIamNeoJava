@@ -187,6 +187,25 @@ class Calculation {
         }
     }
 }
+public class Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        int range = scanner.nextInt();
+
+        Calculation calculation = new Calculation(range);
+
+        Thread squareThread = new Thread(() -> {
+            calculation.printSquare();
+        }); //shorted lambda expression to implement runnable interface and run method is inbuilt
+
+        Thread cubeThread = new Thread(() -> {
+            calculation.printCube();
+        });
+
+        squareThread.start();
+        cubeThread.start();
+    }
+}
 
 Interrupted Exception: 
 This is a checked exception in Java, which happens when a thread is waiting, sleeping, or doing something blocking, and another thread interrupts it.

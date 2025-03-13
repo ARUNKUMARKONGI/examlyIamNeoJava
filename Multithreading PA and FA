@@ -313,3 +313,14 @@ public class Main {
     }
 }
 
+
+Why Thread.sleep() is not ideal:
+------------------------------------------
+Blind waiting: It pauses the thread for a fixed time without knowing if the condition it’s waiting for is ready.
+Wasted CPU time: Even if the resource becomes available earlier, the thread still waits for the full sleep time.
+No lock release: sleep() holds onto the object’s lock, which can lead to deadlocks or blocked threads.
+Why wait() and notify() are better:
+
+Smart waiting: wait() only pauses until notified, so it resumes execution as soon as the other thread signals readiness.
+Efficient CPU usage: Threads don’t waste time sleeping when they could proceed immediately.
+Releases the lock: wait() releases the object’s lock while waiting, allowing other threads to access shared resources.

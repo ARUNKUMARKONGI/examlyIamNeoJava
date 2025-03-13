@@ -1,60 +1,74 @@
-import java.util.Scanner;
-
+import java.io.*;
+import java.util.*;
 class HallBooking implements Runnable {
-    private String hallName;
-    private Double cost;
-    private Integer hallCapacity;
-    private Integer seatsBooked;
+	public HallBooking(String hallName, double cost, int hallCapacity, int seatsBooked) {
 
-    public HallBooking(String hallName, Double cost, Integer hallCapacity, Integer seatsBooked) {
-        this.hallName = hallName;
-        this.cost = cost;
-        this.hallCapacity = hallCapacity;
-        this.seatsBooked = seatsBooked;
-    }
-
-    @Override
-    public void run() {
-        if (seatsBooked * 100 > cost) {
-            System.out.println(hallName + ": Profit");
-        } else {
-            System.out.println(hallName + ": Loss");
-        }
-    }
+		HallName = hallName;
+		this.cost = cost;
+		HallCapacity = hallCapacity;
+		SeatsBooked = seatsBooked;
+	}
+	public HallBooking() {
+		this.HallName = null;
+		this.cost = 0;
+		this.HallCapacity = 0;
+		this.SeatsBooked = 0;
+	}
+	private String HallName;
+	private double cost;
+	private int HallCapacity;
+	private int SeatsBooked;
+	public String getHallName() {
+		return HallName;
+	}
+	public void setHallName(String hallName) {
+		HallName = hallName;
+	}
+	public double getCost() {
+		return cost;
+	}
+	public void setCost(double cost) {
+		this.cost = cost;
+	}
+	public int getHallCapacity() {
+		return HallCapacity;
+	}
+	public void setHallCapacity(int hallCapacity) {
+		HallCapacity = hallCapacity;
+	}
+	public int getSeatsBooked() {
+		return SeatsBooked;
+	}
+	public void setSeatsBooked(int seatsBooked) {
+		SeatsBooked = seatsBooked;
+	}
+	@Override
+	public void run() {
+		int res = this.SeatsBooked* 100;
+		if(res > cost) {
+			System.out.println("Profit");
+		}
+		else
+			System.out.println("Loss");
+		
+	}
 }
-
-public class Main {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        int n = sc.nextInt();
-        sc.nextLine();
-
-        Thread[] threads = new Thread[n];
-
-        for (int i = 0; i < n; i++) {
-            String hallName = sc.nextLine();
-            Double cost = sc.nextDouble();
-            Integer hallCapacity = sc.nextInt();
-            Integer seatsBooked = sc.nextInt();
-            sc.nextLine();
-
-            HallBooking booking = new HallBooking(hallName, cost, hallCapacity, seatsBooked);
-            threads[i] = new Thread(booking);
-            threads[i].start();
-        }
-
-        for (int i = 0; i < n; i++) {
-            try {
-                threads[i].join();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-
-        sc.close();
-    }
+class Main {
+public static void main(String [] args) {
+	int i,n;
+	Scanner sc = new Scanner(System.in);
+	n = Integer.parseInt(sc.nextLine());
+	for(i=0;i<n;i++) {
+		HallBooking h = new HallBooking();
+		h.setHallName(sc.nextLine());
+		h.setCost(Double.parseDouble(sc.nextLine()));
+		h.setHallCapacity(Integer.parseInt(sc.nextLine()));
+		h.setSeatsBooked(Integer.parseInt(sc.nextLine()));
+		Thread t = new Thread(h);
+		t.start();
+	}
 }
-
+}
 -----------------------------------------------
 import java.util.Scanner;
 
@@ -114,88 +128,6 @@ public class AttendanceApp {
 
         int totalWinners = counter1.getCount() + counter2.getCount();
         System.out.println("Winners : " + totalWinners);
-
-        sc.close();
-    }
-}
-
-
--------------------------------
-import java.util.Scanner;
-
-class MatrixMultiplier extends Thread {
-    int[][] result;
-    int[][] mat1;
-    int[][] mat2;
-    int row;
-    int col;
-    int size;
-
-    public MatrixMultiplier(int[][] result, int[][] mat1, int[][] mat2, int row, int col, int size) {
-        this.result = result;
-        this.mat1 = mat1;
-        this.mat2 = mat2;
-        this.row = row;
-        this.col = col;
-        this.size = size;
-    }
-
-    public void run() {
-        for (int k = 0; k < size; k++) {
-            result[row][col] += mat1[row][k] * mat2[k][col];
-        }
-    }
-}
-
-public class MatrixMultiplication {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-
-        int r1 = sc.nextInt(), c1 = sc.nextInt();
-        int r2 = sc.nextInt(), c2 = sc.nextInt();
-
-        if (c1 != r2) {
-            System.out.println("Matrix multiplication not possible");
-            sc.close();
-            return;
-        }
-
-        int[][] mat1 = new int[r1][c1];
-        int[][] mat2 = new int[r2][c2];
-        int[][] result = new int[r1][c2];
-
-        for (int i = 0; i < r1; i++)
-            for (int j = 0; j < c1; j++)
-                mat1[i][j] = sc.nextInt();
-
-        for (int i = 0; i < r2; i++)
-            for (int j = 0; j < c2; j++)
-                mat2[i][j] = sc.nextInt();
-
-        Thread[][] threads = new Thread[r1][c2];
-
-        for (int i = 0; i < r1; i++) {
-            for (int j = 0; j < c2; j++) {
-                threads[i][j] = new MatrixMultiplier(result, mat1, mat2, i, j, c1);
-                threads[i][j].start();
-            }
-        }
-
-        for (int i = 0; i < r1; i++) {
-            for (int j = 0; j < c2; j++) {
-                try {
-                    threads[i][j].join();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-
-        for (int[] row : result) {
-            for (int value : row)
-                System.out.print(value + " ");
-            System.out.println();
-        }
 
         sc.close();
     }

@@ -190,6 +190,10 @@ class EvenAndOdd {
         evenThread.start();
     }
 }
+//()-> evenAndOdd.printOdd():
+//This is a lambda expression — a shortcut for writing an anonymous function. In Java, the Runnable interface has a single method,
+run(), and lambdas are perfect for this kind of situation.
+//() means this lambda takes no arguments.
 -----------------------------------------------------------------------------------------
 import java.util.Scanner;
 

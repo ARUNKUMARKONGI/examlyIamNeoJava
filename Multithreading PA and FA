@@ -213,41 +213,30 @@ class Stall implements Runnable {
 
     @Override
     public void run() {
-        stallCost = stallArea * 150; // Assuming cost per area unit is 150
-        System.out.println(stallCost);
+        this.stallCost = this.stallArea * 150.0;
+        System.out.println(this.stallCost);
     }
 }
 
 public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        int numStalls = sc.nextInt();
-        sc.nextLine();
+        int n = Integer.parseInt(sc.nextLine());
 
-        Thread[] threads = new Thread[numStalls];
-
-        for (int i = 0; i < numStalls; i++) {
+        for (int i = 0; i < n; i++) {
             String stallName = sc.nextLine();
             String details = sc.nextLine();
             double stallArea = Double.parseDouble(sc.nextLine());
             String owner = sc.nextLine();
 
-            Stall stall = new Stall(stallName, details, stallArea, owner);
-            threads[i] = new Thread(() -> stall.run());
-            threads[i].start();
+            Stall st = new Stall(stallName, details, stallArea, owner);
+            Thread s = new Thread(st);
+            s.start();
         }
-
-        for (int i = 0; i < numStalls; i++) {
-            try {
-                threads[i].join();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-
         sc.close();
     }
 }
+
 
 
 Why Thread.sleep() is not ideal:

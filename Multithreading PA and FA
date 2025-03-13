@@ -237,7 +237,7 @@ public class Main {
     }
 }
 
-
+in above program since the Main function doesnt have any other stmts to be printed after the threads, so no join method is reqd here.
 
 Why Thread.sleep() is not ideal:
 ------------------------------------------

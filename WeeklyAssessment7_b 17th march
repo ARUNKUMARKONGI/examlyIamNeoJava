@@ -255,9 +255,9 @@ public class Main {
        // temperatureThread.start();
 
 
---------------------
+-------------------------------------------------------------------------
 above code using lambda so that no need to implement run method separetely
-----------------------
+-------------------------------------------------------------------------------
 import java.util.Scanner;
 
 public class Main {

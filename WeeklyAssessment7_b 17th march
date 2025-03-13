@@ -82,9 +82,8 @@ public class UsernameValidator {
 }
 -------------------------------------------------------------------------------
 Naive approach
----------------
+-------------------------------------------------------------------------------
 import java.util.Scanner;
-
 class Calculation {
     private int range;
 
@@ -118,60 +117,9 @@ class Calculation {
         }
     }
 }
-another approach
--------------------
-import java.util.Scanner;
-
-class SquareThread extends Thread {
-    private int num;
-
-    public SquareThread(int num) {
-        this.num = num;
-    }
-
-    public void run() {
-        System.out.println("Square: " + (num * num));
-    }
-}
-
-class CubeThread extends Thread {
-    private int num;
-
-    public CubeThread(int num) {
-        this.num = num;
-    }
-
-    public void run() {
-        System.out.println("Cube: " + (num * num * num));
-    }
-}
-
-public class NumberThreads {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        int n = sc.nextInt();
-        sc.close();
-
-        for (int i = 1; i <= n; i++) {
-            if (i % 2 == 0) {
-                CubeThread cube = new CubeThread(i);
-                cube.start();
-            } else {
-                SquareThread square = new SquareThread(i);
-                square.start();
-            }
-
-            try {
-                Thread.sleep(100); // Ensures alternating output and avoids overlap
-            } catch (InterruptedException e) {
-                System.out.println(e.getMessage());
-            }
-        }
-    }
-}
 
 optimized approach using inter thread communication
--------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------
 What actually happens when notify() is called?
 
 squareThread starts and gets the lock on calculationLock.

@@ -119,6 +119,7 @@ class Calculation {
 }
 
 optimized approach using inter thread communication
+Synchronized method: Locks the entire method. Only one thread can access it on a particular object.
 ------------------------------------------------------------------------------------------------------------------------
 What actually happens when notify() is called?
 

@@ -64,3 +64,88 @@ class ArrayListMain
     }
 }
 --------------------------------------------
+class ValueProcessor {
+    public static Map<String, Double> readValues(Scanner scanner) {
+        Map<String, Double> valueMap = new HashMap<>();
+        while (true) {
+            String input = scanner.nextLine();
+            if (input.toLowerCase().equals("done")) {
+                break;
+            }
+            String[] pair = input.split(":");
+            if (pair.length == 2) {
+                String key = pair[0].trim();
+                try {
+                    double value = Double.parseDouble(pair[1].trim());
+                    valueMap.put(key, value);
+                } catch (NumberFormatException e) {
+                    System.out.println("Invalid input");
+                    return null;
+                }
+            } else {
+                System.out.println("Invalid format");
+                return null;
+            }
+        }
+        return valueMap;
+    }
+
+    public static double calculateSum(Map<String, Double> valueMap) {
+        double sum = 0;
+        for (double value : valueMap.values()) {
+            sum += value;
+        }
+        return sum;
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        Map<String, Double> valueMap = ValueProcessor.readValues(scanner);
+        if (valueMap != null) {
+            double sum = ValueProcessor.calculateSum(valueMap);
+            System.out.printf("%.2f\n", sum);
+        }
+        scanner.close();
+    }
+}
+---------------------------------------------------------------------------------------
+import java.util.*;
+
+class NumberProcessor {
+    private TreeSet<Integer> numberSet;
+
+    public NumberProcessor(Set<Integer> numberSet) {
+        this.numberSet = new TreeSet<>(numberSet); // Convert  Set to a TreeSet
+    }
+
+    public void addNumber(int number) {
+        numberSet.add(number);
+    }
+
+    public int retrieveAndRemoveFirstElement() {
+        return numberSet.pollFirst();
+    }
+
+    public Set<Integer> getNumberSet() {
+        return numberSet;
+    }
+}
+class Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        Set<Integer> numberSet = new TreeSet<>();
+        NumberProcessor numberProcessor = new NumberProcessor(numberSet);
+
+        int numberOfElements = scanner.nextInt();
+        for (int i = 0; i < numberOfElements; i++) {
+            numberProcessor.addNumber(scanner.nextInt());
+        }
+
+        int firstElement = numberProcessor.retrieveAndRemoveFirstElement();
+        System.out.println(numberProcessor.getNumberSet());
+
+        scanner.close();
+    }
+}

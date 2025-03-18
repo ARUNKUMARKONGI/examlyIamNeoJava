@@ -326,3 +326,68 @@ Since we want to display book details in the same sequence as they were entered,
 No Duplicates:
 LinkedHashSet ensures every book is unique. If two books with the same details are added, only one will be stored.
 This is essential when we want a unique collection of books.
+
+
+Optimized approach using hashmap
+-------------------------------------------
+import java.util.*;
+
+class Book {
+    private int id;
+    private String name;
+    private String author;
+    private String publisher;
+    private int quantity;
+
+    public Book(int id, String name, String author, String publisher, int quantity) {
+        this.id = id;
+        this.name = name;
+        this.author = author;
+        this.publisher = publisher;
+        this.quantity = quantity;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    @Override
+    public String toString() {
+        return id + " " + name + " " + author + " " + publisher + " " + quantity;
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        int n = scanner.nextInt();
+        scanner.nextLine();
+        
+        LinkedHashSet<Book> books = new LinkedHashSet<>();
+        Map<String, Book> bookMap = new HashMap<>();
+        
+        for (int i = 0; i < n; i++) {
+            int id = scanner.nextInt();
+            scanner.nextLine();
+            String name = scanner.nextLine();
+            String author = scanner.nextLine();
+            String publisher = scanner.nextLine();
+            int quantity = scanner.nextInt();
+            scanner.nextLine();
+            
+            Book book = new Book(id, name, author, publisher, quantity);
+            books.add(book);
+            bookMap.put(name, book);
+        }
+        
+        books.forEach(System.out::println);
+        
+        String searchBook = scanner.nextLine();
+        
+        if (bookMap.containsKey(searchBook)) {
+            System.out.println(searchBook + " is present in the set");
+        } else {
+            System.out.println(searchBook + " is not present in the set");
+        }
+    }
+}

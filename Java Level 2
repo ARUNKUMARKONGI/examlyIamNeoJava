@@ -1,0 +1,38 @@
+// You are using Java
+// You are using Java
+
+
+import java.util.*;
+
+class Main{
+    public static int leap(int n)
+    {
+        if(n==0) return 0;
+        if(n%400==0) return 366;
+        if(n%100==0) return 365;
+        if(n%4==0) return 366;
+        return 365;
+    }
+    public static void main(String args[])
+    {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        int days = 0;
+        for(int i=1;i<n;i++)
+        {
+            
+            days+=leap(i);
+        }
+        days++;
+        days%=7;
+        String ar[] = new String[7];
+        ar[0] = "Sunday";
+        ar[1] = "Monday";
+        ar[2] = "Tuesday";
+        ar[3] = "Wednesday";
+        ar[4] = "Thursday";
+        ar[5] = "Friday";
+        ar[6] = "Saturday";
+        System.out.println(ar[days]);
+    }
+}

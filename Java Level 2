@@ -241,7 +241,6 @@ public class Main {
     }
 }
 ----------------------------------------------------------------------
-// You are using Java
 import java.util.Scanner;
 
 public class Main {

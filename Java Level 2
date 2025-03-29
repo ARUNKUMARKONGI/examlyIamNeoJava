@@ -371,7 +371,7 @@ class MovieCollisions {
         }
 
         int res= 0;
-
+	//loop starts with M days and iterate over N movies on 0th column 
         for (int j = 0; j < M; j++) {
             int count = 0;
             for (int i = 0; i < N; i++) {

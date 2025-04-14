@@ -159,3 +159,567 @@ class main {
         }
     }
 }
+---------------------------------------------------------------------------------------
+// You are using Java
+import java.util.*;
+class Vehicle
+{
+    int distance;
+    
+    Vehicle(int distance)
+    {
+        this.distance = distance;
+    }
+}
+
+class Car extends Vehicle
+{
+    int time;
+    Car(int distance,int time)
+    {
+        super(distance);
+        this.time = time;
+    }
+    float speed()
+    {
+        return ((float)super.distance) / this.time ;
+    }
+}
+
+class Main
+{
+    public static void main(String args[])
+    {
+        Scanner sc = new Scanner(System.in);
+        Car c = new Car(sc.nextInt(),sc.nextInt());
+        System.out.println("Speed: " + c.speed() + " km/h");
+    }
+    
+}
+------------------------------------------------------------------------------
+import java.util.Scanner;
+
+class Parent {
+    protected void add(int num1, int num2) {
+        int sum = num1 + num2;
+        System.out.println("Addition: " + sum);
+    }
+}
+
+class Child1 extends Parent {
+    protected void sub(int num1, int num2) {
+        int diff = num1 - num2;
+        System.out.println("Subtraction: " + diff);
+    }
+}
+
+class Child2 extends Parent {
+    protected void mul(int num1, int num2) {
+        int product = num1 * num2;
+        System.out.println("Multiplication: " + product);
+    }
+}
+
+class Child3 extends Parent {
+    protected void div(int num1, int num2) {
+        int quotient = num1 / num2;
+        System.out.println("Division: " + quotient);
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        int num1 = scanner.nextInt();
+        int num2 = scanner.nextInt();
+
+        Child3 child3 = new Child3();
+        child3.add(num1, num2);
+        child3.div(num1, num2);
+
+        Child1 child1 = new Child1();
+        child1.sub(num1, num2);
+
+        Child2 child2 = new Child2();
+        child2.mul(num1, num2);
+
+        scanner.close();
+    }
+}
+-------------------------------------------------------------------------
+import java.util.Scanner;
+
+class Person {
+    private String name; 
+    
+    public Person(String s) {   
+        setName(s); 
+    } 
+    
+    public void setName(String s) { 
+        name = s; 
+    } 
+    
+    public String getName(){ 
+        return name; 
+    } 
+    
+    public void display(){ 
+        System.out.println(name); 
+    } 
+}
+
+class Staff extends Person {
+    private int staffId; 
+    
+    public Staff(String name, int staffId){ 
+        super(name); 
+        setStaffId(staffId); 
+    } 
+    
+    public int getStaffId() {
+        return staffId;
+    }
+    
+    public void setStaffId(int staffId) {
+        this.staffId = staffId;
+    }
+    
+    public void display() { 
+        super.display(); 
+        System.out.println(staffId); 
+    } 
+}
+
+class TemporaryStaff extends Staff {
+    private int days; 
+    private int hoursWorked; 
+    
+    public TemporaryStaff(String name, int id, int days, int hoursWorked) {      
+        super(name, id); 
+        this.days = days; 
+        this.hoursWorked = hoursWorked; 
+    } 
+    
+    public int Salary() { 
+        int salary = days * hoursWorked * 50;
+        return salary;
+    } 
+    
+    public void display() { 
+        super.display(); 
+        System.out.println(days); 
+        System.out.println(hoursWorked); 
+        System.out.println(Salary()); 
+    } 
+}
+
+public class Main {
+    public static void main(String args[]) {
+        Scanner scanner = new Scanner(System.in);
+        
+        //System.out.print("Enter the person's name: ");
+        String name = scanner.nextLine();
+        
+        //System.out.print("Enter the staff ID: ");
+        int staffId = scanner.nextInt();
+        
+       // System.out.print("Enter the number of days worked: ");
+        int days = scanner.nextInt();
+        
+      //  System.out.print("Enter the number of hours worked: ");
+        int hoursWorked = scanner.nextInt();
+        
+        TemporaryStaff ts = new TemporaryStaff(name, staffId, days, hoursWorked);
+        ts.display();
+        
+        scanner.close();
+    }
+}
+----------------------------------------------------------------------------------
+import java.util.Scanner;
+class main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+
+        int total_sum = 0;
+        int count = 0;
+
+        while (n != 0) {
+            int digit = n % 10;
+            total_sum += digit;
+            count++;
+            n = n / 10;
+        }
+
+        System.out.println(total_sum * (count - 1));
+    }
+}
+
+
+        // for (int i = 0; i < k; i++) {
+        //     for (int j = i + 1; j < k; j++) {
+        //         sum += a[i] + a[j];
+        //     }
+        // }
+
+ 
+-----------------------------------------------------------------------------------
+import java.util.Scanner;
+
+class account {
+    int account_id;
+    String holder_name;
+    int balance;
+
+    account(int id, String name, int bal) {
+        if (id >= 100 && id <= 999) {
+            account_id = id;
+        } else {
+            account_id = -1;
+        }
+
+        holder_name = name;
+
+        if (bal >= 0) {
+            balance = bal;
+        } else {
+            balance = 0;
+        }
+    }
+
+    int credit(int amount) {
+        balance += amount;
+        return balance;
+    }
+
+    void setaccountbalance(int bal) {
+        if (bal >= 0) {
+            balance = bal;
+        }
+        System.out.println(balance);
+    }
+}
+
+class vipaccount extends account {
+    vipaccount(int id, String name, int bal) {
+        super(id, name, bal);
+    }
+
+    void setaccountbalance(int bal) {
+        if (bal >= -10000) {
+            balance = bal;
+            System.out.println(balance);
+        } else {
+            System.out.println("The balance can be negative but no less than -10000");
+        }
+    }
+}
+
+class main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        int id = sc.nextInt();
+        sc.nextLine();
+        String name = sc.nextLine();
+        int initial_bal = sc.nextInt();
+        int credit_amt = sc.nextInt();
+        int negative_bal = sc.nextInt();
+
+        account acc = new account(id, name, initial_bal);
+        System.out.println(acc.account_id + " " + acc.holder_name + " " + acc.balance);
+
+        System.out.println(acc.credit(credit_amt));
+        acc.setaccountbalance(acc.balance);
+
+        vipaccount vip = new vipaccount(id, name, acc.balance);
+        vip.setaccountbalance(negative_bal);
+    }
+}
+------------------------------------------------------------------------------
+import java.util.Scanner;
+
+class operation {
+    public void fun1(int a, int b) {
+        System.out.println(a + b);
+    }
+
+    public void fun1(int a, int b, int c) {
+        System.out.println(a * b * c);
+    }
+}
+
+class main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+
+        if (n < 1 || n > 3) {
+            System.out.println("WRONG INPUT");
+            return;
+        }
+
+        int[] arr = new int[n];
+        for (int i = 0; i < n; i++) {
+            arr[i] = sc.nextInt();
+        }
+
+        operation obj = new operation();
+
+        if (n == 2) {
+            obj.fun1(arr[0], arr[1]);
+        } else if (n == 3) {
+            obj.fun1(arr[0], arr[1], arr[2]);
+        } else {
+            System.out.println("WRONG INPUT");
+        }
+    }
+}
+-------------------------------------------------------------------------------------
+import java.util.Scanner;
+
+class parent {
+    void m1() {
+        System.out.println("From parent m1()");
+    }
+
+    void m2(int n) {
+        System.out.println(n);
+    }
+}
+
+class child extends parent {
+    void m1() {
+        System.out.println("From child m1()");
+    }
+
+    void m2(int n) {
+        System.out.println(n);
+    }
+}
+
+class main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n1 = sc.nextInt();
+        int n2 = sc.nextInt();
+
+        parent p = new parent();
+        p.m1();
+        p.m2(n1);
+
+        child c = new child();
+        c.m1();
+        c.m2(n2);
+    }
+}
+-------------------------------------------------------------------------------------
+import java.util.Scanner;
+class Vehicle{
+
+    public void move(String t){
+
+    System.out.println("In Parent: "+t);
+
+    }
+
+}
+
+class MotorBike extends Vehicle{
+
+    public void move(String t1){
+
+    System.out.println("In Child: "+t1);
+
+    }
+
+}
+
+class Poly{
+
+    public static void main(String[] args){
+
+    Vehicle vh=new MotorBike();
+    Scanner sc=new Scanner(System.in);
+    String t,t1;
+    t=sc.nextLine();
+    t1=sc.nextLine();
+    vh.move(t1);
+    Vehicle vh1=new Vehicle();
+    vh1.move(t); 
+    
+    }}
+-----------------------------------------------------------------------------
+import java.util.Scanner;
+
+class Icecream {
+    public double qty, pi = 3.14;
+
+    public void Quantity(int r) {
+        qty = 1.33 * pi * r * r * r;
+        System.out.printf("%.2f\n", qty);
+    }
+
+    public void Quantity(int r, int h) {
+        qty = 0.33 * pi * r * r * h;
+        System.out.printf("%.2f\n", qty);
+    }
+}
+
+class IcecreamMain {
+    public static void main(String args[]) {
+        int r, h;
+        Icecream ic = new Icecream();
+        Scanner in = new Scanner(System.in);
+        r = in.nextInt();
+        
+        if (in.hasNextInt()) {
+            h = in.nextInt();
+            ic.Quantity(r, h);
+        } else {
+            ic.Quantity(r);
+        }
+    }
+}
+-----------------------------------------------------------------------
+import java.util.Scanner;
+
+abstract class ItemType {
+    public abstract double calculateAmount();
+}
+
+class Wooden extends ItemType {
+    private int quantity;
+    private double pricePerUnit;
+
+    public Wooden(int quantity, double pricePerUnit) {
+        this.quantity = quantity;
+        this.pricePerUnit = pricePerUnit;
+    }
+
+    public double calculateAmount() {
+        return quantity * pricePerUnit;
+    }
+}
+
+class Electronics extends ItemType {
+    private String type;
+    private double price;
+
+    public Electronics(String type, double price) {
+        this.type = type;
+        this.price = price;
+    }
+
+    public double calculateAmount() {
+        if (type.equals("Academics")) {
+            return price * 0.95;
+        } else {
+            return price;
+        }
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        int choice = scanner.nextInt();
+        
+        if (choice == 1) {
+            int quantity = scanner.nextInt();
+            double pricePerUnit = scanner.nextDouble();
+            Wooden woodenItem = new Wooden(quantity, pricePerUnit);
+            System.out.println(woodenItem.calculateAmount());
+        } else if (choice == 2) {
+            String type = scanner.next();
+            double price = scanner.nextDouble();
+            Electronics electronicsItem = new Electronics(type, price);
+            System.out.println(electronicsItem.calculateAmount());
+        } else {
+            System.out.println("Invalid choice");
+        }
+        
+        scanner.close();
+    }
+}
+-------------------------------------------------------------------------------
+import java.util.Scanner;
+
+abstract class AbstractClass {
+  int val; 	
+  abstract int getValue();
+  abstract int divisorSum(int n);
+}
+
+class Calculator extends AbstractClass {
+public int getValue() {
+	Scanner in = new Scanner(System.in);
+	val = in.nextInt();
+	in.close();
+	return val;
+}
+	
+public int divisorSum(int n) {
+    int sum = 0;
+    for(int i=1; i<=n; i++) {
+        if(n%i == 0) {
+            sum += i;
+        }
+    }
+    return sum;      
+}
+}
+
+class Solution {
+
+    public static void main(String []args) {
+        Calculator calObj = new Calculator();
+        int value = calObj.getValue();
+        int a = calObj.divisorSum(value);
+        System.out.println(a);
+    }
+
+}
+------------------------------------------------------------
+import java.util.*;
+
+interface matrix_diagonals {
+    void diagonalsMinMax(int a[][]);
+}
+
+class matrix_processor implements matrix_diagonals {
+    public void diagonalsMinMax(int a[][]) {
+        int n = a.length;
+        int min1 = a[0][0], max1 = a[0][0];
+        int min2 = a[0][n - 1], max2 = a[0][n - 1];
+        for (int i = 0; i < n; i++) {
+            if (a[i][i] < min1)
+                min1 = a[i][i];
+            if (a[i][i] > max1)
+                max1 = a[i][i];
+            if (a[i][n - 1 - i] < min2)
+                min2 = a[i][n - 1 - i];
+            if (a[i][n - 1 - i] > max2)
+                max2 = a[i][n - 1 - i];
+        }
+        System.out.println("Smallest Element - 1: " + min1);
+        System.out.println("Greatest Element - 1: " + max1);
+        System.out.println("Smallest Element - 2: " + min2);
+        System.out.println("Greatest Element - 2: " + max2);
+    }
+}
+
+public class Main {
+    public static void main(String args[]) {
+        Scanner in = new Scanner(System.in);
+        int n = in.nextInt();
+        int a[][] = new int[n][n];
+        for (int i = 0; i < n; i++)
+            for (int j = 0; j < n; j++)
+                a[i][j] = in.nextInt();
+        matrix_processor m = new matrix_processor();
+        m.diagonalsMinMax(a);
+    }
+}

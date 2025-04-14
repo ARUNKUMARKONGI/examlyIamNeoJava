@@ -1,0 +1,161 @@
+import java.util.*;
+
+class TelephoneIndex {
+    String name;
+    String number;
+
+    TelephoneIndex(String name, String number) {
+        this.name = name;
+        this.number = number;
+    }
+
+    void display() {
+        System.out.println(name + " " + number);
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        sc.nextLine();
+        TelephoneIndex[] records = new TelephoneIndex[n];
+        for (int i = 0; i < n; i++) {
+            String name = sc.nextLine();
+            String number = sc.nextLine();
+            records[i] = new TelephoneIndex(name, number);
+        }
+        String search = sc.nextLine();
+        for (int i = 0; i < n; i++) {
+            if (records[i].name.startsWith(search)) {
+                records[i].display();
+            }
+        }
+    }
+}
+----------------------------------------------------------------------
+import java.util.*;
+
+class User
+{
+    String name , username , pwd , mobileNumber;
+    public User(String name,String username , String pwd,String mobileNumber)
+    {
+        this.name = name;
+        this.username = username;
+        this.pwd = pwd;
+        this.mobileNumber = mobileNumber;
+    }
+    public boolean equals(User u)
+    {
+        return this.mobileNumber.equals(u.mobileNumber);
+    }
+}
+
+class Main
+{
+    public static void main(String args[])
+    {
+        Scanner sc = new Scanner(System.in);
+        User u1 = new User(sc.nextLine(),sc.nextLine(),sc.nextLine(),sc.nextLine());
+        User u2 = new User(sc.nextLine(),sc.nextLine(),sc.nextLine(),sc.nextLine());
+        System.out.print("User 1 and User 2 are ");
+        System.out.println(u1.equals(u2) ? "equal": "not equal");
+    }
+}
+-------------------------------------------------------------------------------------------------
+import java.util.*;
+
+class NumberConverter {
+    public String convert(String from, String to, String number) {
+        int decimal = 0;
+
+        if (from.equals("D"))
+            decimal = Integer.parseInt(number);
+        else if (from.equals("B"))
+            decimal = Integer.parseInt(number, 2);
+        else if (from.equals("O"))
+            decimal = Integer.parseInt(number, 8);
+        else if (from.equals("H"))
+            decimal = Integer.parseInt(number, 16);
+
+        if (to.equals("D"))
+            return String.valueOf(decimal);
+        else if (to.equals("B"))
+            return Integer.toBinaryString(decimal);
+        else if (to.equals("O"))
+            return Integer.toOctalString(decimal);
+        else if (to.equals("H"))
+            return Integer.toHexString(decimal).toUpperCase();
+
+        return "";
+    }
+}
+
+public class Main {
+    public static void main(String args[]) {
+        Scanner sc = new Scanner(System.in);
+        String from = sc.nextLine();
+        String to = sc.nextLine();
+        String number = sc.nextLine();
+
+        NumberConverter nc = new NumberConverter();
+        System.out.println(nc.convert(from, to, number));
+    }
+}
+--------------------------------------------------------------------------
+import java.util.Scanner;
+
+class main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int int_value = sc.nextInt();
+        double double_value = sc.nextDouble();
+        Integer int_object = int_value;
+        Double double_object = double_value;
+
+        if (int_object instanceof Integer) {
+            System.out.println("An object of Integer is created");
+        }
+        if (double_object instanceof Double) {
+            System.out.println("An object of Double is created");
+        }
+    }
+}
+--------------------------------------------------------------------------------
+import java.util.Scanner;
+
+class box {
+    double width, height, depth;
+
+    box(double width, double height, double depth) {
+        this.width = width;
+        this.height = height;
+        this.depth = depth;
+    }
+
+    double calculateVolume() {
+        if (width <= 0 || height <= 0 || depth <= 0) {
+            return -1;
+        }
+        return width * height * depth;
+    }
+}
+
+class main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        double width = sc.nextDouble();
+        double height = sc.nextDouble();
+        double depth = sc.nextDouble();
+        
+        box myBox = new box(width, height, depth);
+        double volume = myBox.calculateVolume();
+        
+        if (volume == -1) {
+            System.out.println("Invalid");
+        } else {
+            System.out.printf("%.2f\n", volume);
+        }
+    }
+}

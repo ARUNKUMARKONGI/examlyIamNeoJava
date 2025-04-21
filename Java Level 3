@@ -1,0 +1,133 @@
+import java.util.*;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        int m = sc.nextInt();
+        int k = sc.nextInt();
+
+        HashSet<Integer> ig = new HashSet<>();
+        for (int i = 0; i < m; i++) {
+            ig.add(sc.nextInt());
+        }
+
+        HashSet<Integer> tk = new HashSet<>();
+        for (int i = 0; i < k; i++) {
+            tk.add(sc.nextInt());
+        }
+
+        int both = 0;
+        int neither = 0;
+
+        for (int i = 1; i <= n; i++) {
+            if (ig.contains(i) && tk.contains(i)) {
+                both++;
+            }
+            if (!ig.contains(i) && !tk.contains(i)) {
+                neither++;
+            }
+        }
+
+        System.out.println(both + " " + neither);
+    }
+}
+------------------------------------------------------------
+import java.util.*;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        int[] arr = new int[n];
+        int zero_count = 0;
+        for (int i = 0; i < n; i++) {
+            arr[i] = sc.nextInt();
+            if (arr[i] == 0) zero_count++;
+        }
+        for (int i = 0; i < zero_count; i++) {
+            System.out.print(0 + " ");
+        }
+        for (int i = zero_count; i < n; i++) {
+            System.out.print(1 + " ");
+        }
+    }
+}
+--------------------------------------------------------------
+import java.util.*;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        float[] arr = new float[n + 1];
+        for (int i = 0; i < n; i++) {
+            arr[i] = sc.nextFloat();
+        }
+        int pos = sc.nextInt();
+        float element = sc.nextFloat();
+
+        for (int i = n; i > pos; i--) {
+            arr[i] = arr[i - 1];
+        }
+        arr[pos] = element;
+
+        for (int i = 0; i <= n; i++) {
+            System.out.print(arr[i] + " ");
+        }
+        System.out.println();
+
+        Set<Float> seen = new HashSet<>();
+        Set<Float> duplicates = new LinkedHashSet<>();
+        for (int i = 0; i <= n; i++) {
+            if (seen.contains(arr[i])) {
+                duplicates.add(arr[i]);
+            } else {
+                seen.add(arr[i]);
+            }
+        }
+
+        for (float val : duplicates) {
+            System.out.println(val);
+        }
+    }
+}
+----------------------------------------------------------------------
+import java.util.*;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        int[] arr = new int[n];
+        int count_1 = 0;
+        for (int i = 0; i < n; i++) {
+            arr[i] = sc.nextInt();
+            if (arr[i] == 1) count_1++;
+        }
+
+        int z_c = 0;
+        int ans = 0;
+
+        for (int i = 0; i < count_1; i++) {
+            if (arr[i] == 0) z_c++;
+        }
+
+        ans = z_c;
+
+        for (int i = 1; i <= n - count_1; i++) {
+            if (arr[i - 1] == 0) z_c--;
+            if (arr[i + count_1 - 1] == 0) z_c++;
+            if (z_c < ans) ans = z_c;
+        }
+
+        System.out.println(ans);
+    }
+}
+Instead of counting 0s from scratch in every window (which is O(n * k)), we:
+Keep a running count of 0s, called z_c.
+When we slide the window right by 1, we remove the left element and add the new right element.
+So:
+If the left element (leaving the window) is 0, we do z_c--
+If the new right element (entering the window) is 0, we do z_c++
+This keeps z_c always up to date with the current window’s 0s.

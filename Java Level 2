@@ -398,3 +398,28 @@ Day 1: Movies 4: (1,2), (1,3), (1,4),(2,3),(2,4),(3,4) → 6 collisions
 Day 2: Movies 2: (1,3) → 1 collision
 Day 3: Movies scheduled are 3: (1,2),(1,3),(2,3) 3 collisions
 Thus, the total number of different movie screening collisions is 4.
+
+
+
+
+
+
+
+
+
+import java.util.*;
+public class UniqueElementsHashMap {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        int arr[] = new int[n];
+        for(int i=0; i<n; i++) arr[i] = sc.nextInt();
+        HashMap<Integer, Integer> freq_map = new HashMap<>();
+        for(int x : arr) {
+            freq_map.put(x, freq_map.getOrDefault(x, 0) + 1);
+        }
+        for(int x : arr) {
+            if(freq_map.get(x) == 1) System.out.print(x + " ");
+        }
+    }
+}
